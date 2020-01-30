@@ -1,0 +1,22 @@
+{
+  "name": "virtual-connections",
+  "version": "1.0.0",
+  "description": "A webapp to connect users in the same class for study sessions and such.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyuan0v0/SD-D-Project.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/hyuan0v0/SD-D-Project/issues"
+  },
+  "homepage": "https://github.com/hyuan0v0/SD-D-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
