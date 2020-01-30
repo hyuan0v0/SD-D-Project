@@ -7,8 +7,9 @@ in cmd/terminal, type
 
 to get all of the required packages installed. Afterwards simply run
 
-`node start` to start the server. To view the page, the server defaults to
+`node start`
 
+to start the server. To view the page, the server defaults to
 running on port 3000, so simply type
 
 `localhost:3000`
