@@ -1,8 +1,17 @@
+require("dotenv").config();
 var express = require("express");
 var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
+const mongoose = require("mongoose");
+mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true});
+
+var db = mongoose.connection;
+db.on("error",console.error.bind(console,"connection error"));
+db.once("open",()=>{
+  console.log("successfully connected");
+})
 
 router.use(function (req,res,next) {
   console.log("/" + req.method);
