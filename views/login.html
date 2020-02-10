@@ -16,8 +16,8 @@
   		<nav class="navi" role="navigation">
   			<ul class="nav navbar-left">
   				<li><a href="/">Home</a></li>
-  				<li><a href="/about">About us</a></li>
-  				<li><a href="/contact">Contact us</a></li>
+  				<li><a href="/about">About Us</a></li>
+  				<li><a href="/contact">Contact Us</a></li>
   				<li class="active"><a href="/login">Log In<span class="sr-only">(current)</span></a></li>
   				<li><a href="/signup">Sign Up</a></li>
   			</ul>
@@ -25,13 +25,13 @@
   	</div>
 
   	<br/>
-  	<form style="text-align:center;font-family: decorative;">
+  	<form style="text-align:center;font-family: decorative;" method="post">
   		<div class="box">
   			<h2> Welcome! </h2>
   			<p>Please use RCS ID for Username</p>
-  			<input type="Username" name="Username" value="Username"  class="Username" />
+  			<input type="username" name="username" id="username" placeholder="Username" required /> <br>
 
-  			<input type="password" name="Username" value="Username" class="Username" />
+  			<input type="password" name="password" id="password" placeholder="Password" required /><br>
 
   			<a><div class="btn">Log In</div></a>
   			<a href="/signup"><div id="btn2">Create Account</div></a> 
