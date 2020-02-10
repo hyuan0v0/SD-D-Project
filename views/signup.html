@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <title>Signup Form</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div>
+  	<br/>
+  	<div class="headerTitle" style="margin-left: 0px;">
+  		<img src="/img" alt="logo" width="120" height="100">
+  		<h1 style="display: inline-block; font-family: Georgia,serif;"> Virtual Connections </h1>
+  	</div>
+  	<div class="sidebar" style="width: 15%; float:left">
+  		<nav class="navi" role="navigation">
+  			<ul class="nav navbar-left">
+  				<li><a href="/">Home</a></li>
+  				<li><a href="/about">About Us</a></li>
+  				<li><a href="/contact">Contact Us</a></li>
+  				<li><a href="/login">Log In</a></li>
+          <li class="active"><a href="/signup">Sign Up<span class="sr-only">(current)</span></a></li>
+  			</ul>
+  		</nav>
+  	</div>
+
+  	<br/>
+  	<form style="text-align:center;font-family: decorative;" method="post">
+  		<div class="box">
+  			<h2> Create Your Account! </h2>
+  			<p>Please use RCS ID for Username</p>
+  			<input type="username" name="username" id="username" placeholder="Username" required /> <br>
+
+  			<input type="password" name="password" id="password" placeholder="Password" required /><br>
+
+        <input class="btn" type="submit" name="submit" value="Submit"/> <br>
+  			<!-- <a><div class="btn">Sign Up</div></a> -->
+  		</div> 
+  	</form>
+  </div>
+
+<style>
+body{
+  margin: 0 auto 0 auto;  
+  width:100%; 
+  margin: 20px 0px 20px 0px;   
+}
+
+.box{
+  background:white;
+  width:300px;
+  border-radius:6px;
+  margin: 0 auto 0 auto;
+  padding:0px 0px 0px 0px;
+  border: black 4px solid;
+}
+
+.btn{
+  background: cornflowerblue;
+  width:125px;
+  padding-top:5px;
+  padding-bottom:5px;
+  color:white;
+  border-radius:4px;
+  font-size: large;
+  border: transparent;
+  
+  margin-top:20px;
+  margin-bottom:20px;
+  float:middle;
+  margin-left:16px;
+}
+
+.btn:hover{
+  background:rgb(39, 139, 206); 
+}
+</style>
+</body>
+</html>
