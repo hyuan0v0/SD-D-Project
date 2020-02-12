@@ -2,14 +2,15 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
   <div>
   	<br/>
   	<div class="headerTitle" style="margin-left: 0px;">
-  		<img src="/img" alt="logo" width="120" height="100">
+  		<img src="/logoimg" alt="logo" width="120" height="100">
   		<h1 style="display: inline-block; font-family: Georgia,serif;"> Virtual Connections </h1>
   	</div>
   	<div class="sidebar" style="width: 15%; float:left">
@@ -19,14 +20,21 @@
   				<li><a href="/about">About Us</a></li>
   				<li><a href="/contact">Contact Us</a></li>
   				<li class="active"><a href="/login">Log In<span class="sr-only">(current)</span></a></li>
-  				<li><a href="/signup">Sign Up</a></li>
+  				
   			</ul>
   		</nav>
   	</div>
 
-  	<br/>
+    <br/>
+    <div class="login-body" style="width:85%;float:right;">
+    <div class="centering-login" style="margin:0 auto;width:60%">
+    <div class="img-left" id="limg" style=" width:50%; float:left">
+    <img src="/loginimg"  alt="logo" width="100% " >
+    </div>
+    <div class="login-form" style="display: inline-block;width: 50%;">
   	<form style="text-align:center;font-family: decorative;" method="post">
-  		<div class="box">
+  		<div class="box" id="Box">
+        <div class="input-login" style="margin:0 auto;text-align:center;position: absolute;top: 50%;transform: translateY(-50%);width:100%">
   			<h2> Welcome! </h2>
   			<p>Please use RCS ID for Username</p>
   			<input type="username" name="username" id="username" placeholder="Username" required /> <br>
@@ -35,26 +43,35 @@
 
   			<a><div class="btn">Log In</div></a>
   			<a href="/signup"><div id="btn2">Create Account</div></a> 
-
+      </div>
   		</div> 
-  	</form>
+    </form>
   </div>
+</div>
+  </div>
+  
+</div>
 
 <style>
-body{
+/* body{
   margin: 0 auto 0 auto;  
   width:100%; 
   
   margin: 20px 0px 20px 0px;   
-}
+} */
 
 .box{
+  position:relative;
+  display:inline-block;
   background:white;
-  width:300px;
+  width:100%;
+  height: 608px;
   border-radius:6px;
   margin: 0 auto 0 auto;
-  padding:0px 0px 70px 0px;
-  border: black 4px solid; 
+  padding:0px 0px 0px 0px;
+  border: black 1px solid; 
+  margin-left: 0px;
+  background-image: url('/greytrees');
 }
 
 .password{
@@ -62,18 +79,18 @@ body{
   background:#ecf0f1;
   border: #ccc 1px solid;
   padding: 8px;
-  width:250px;
+  width:80%;
   font-size:1em;
 }
 
 .btn{
   background: cornflowerblue;
-  width:125px;
+  width:40%;
   padding-top:5px;
   padding-bottom:5px;
   color:white;
   border-radius:4px;
-  font-size: large;
+ 
   border: transparent;
   
   margin-top:20px;
@@ -88,18 +105,19 @@ body{
 }
 
 #btn2{
-  float:left;
+  float:right;
   background:cornflowerblue;
-  width:125px;
+  width:40%;
   padding-top:5px;
   padding-bottom:5px;
   color:white;
   border-radius:4px;
   border: transparent;
-  font-size: large;
+  
   margin-top:20px;
   margin-bottom:20px;
-  margin-left:10px;
+  margin-right:16px;
+  
  
 }
 
@@ -107,5 +125,14 @@ body{
 	background:rgb(39, 139, 206); 
 }
   </style>
+  <script>
+    
+    $(window).on("resize", function(event){
+      var h=document.getElementById("limg").offsetHeight;
+      console.log(h);
+      document.getElementById("Box").style.height=h+"px";
+      
+    });    
+    </script>
 </body>
 </html>
