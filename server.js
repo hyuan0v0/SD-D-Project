@@ -12,6 +12,7 @@ router.use(function (req,res,next) {
 router.get("/",function(req,res){
   res.sendFile(path + "index.html");
 });
+
 router.get("/img",function(req,res){
   res.sendFile(path2 + "logo.png");
 });
@@ -23,8 +24,13 @@ router.get("/about",function(req,res){
 router.get("/contact",function(req,res){
   res.sendFile(path + "contact.html");
 });
+
 router.get("/login",function(req,res){
   res.sendFile(path + "login.html");
+});
+
+router.get("/signup",function(req,res){
+  res.sendFile(path + "signup.html");
 });
 
 app.use("/",router);
