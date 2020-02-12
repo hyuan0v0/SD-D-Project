@@ -21,6 +21,9 @@ router.get("/loginimg",function(req,res){
 router.get("/greytrees",function(req,res){
   res.sendFile(path2 + "greytrees.jpg");
 });
+router.get("/signupbackground",function(req,res){
+  res.sendFile(path2 + "signupbackground.jpg");
+});
 
 router.get("/about",function(req,res){
   res.sendFile(path + "about.html");

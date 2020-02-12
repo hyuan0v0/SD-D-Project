@@ -25,22 +25,25 @@
   		</nav>
   	</div>
 
-  	<br/>
+	  <br/>
+	  <div id="signup-form" style="width:85% ; float:right; ">
   	<form style="text-align:center;font-family: decorative;" method="post">
   		<div class="box">
-  			<h2> Join Virtual Connections! </h2>
-			  <p>Please use RCS ID for Username</p>
-			  <p>Please choose a password longer than 6 characters</p>
+  			<h2 style="color:white;font-family: Segoe Script; font-weight:bold;"> Join Virtual Connections! </h2>
+			  <p style="color:black;font-family: Segoe Script; font-weight:bold;">Please use RCS ID for Username</p>
+			  <p style="color:black;font-family: Segoe Script; font-weight:bold;">Please choose a password longer than 6 characters</p>
 			  <input style="margin-bottom: 3px;" type="firstname" name="firstname" id="firstname" placeholder="First Name" required /> <br>
 			  <input style="margin-bottom: 3px;" type="lastname" name="lastname" id="lastname" placeholder="Last Name" required /> <br>
   			<input style="margin-bottom: 3px;" type="username" name="username" id="username" placeholder="Username" required /> <br>
 			  
-  			<input style="margin-bottom: 3px;" type="password" name="password" id="password" placeholder="Password" required /><br>
+			  <input style="margin-bottom: 3px;" type="password" name="password" id="password" placeholder="Password" required /><br>
+			  <input style="margin-bottom: 3px;" type="password" name="password" id="password" placeholder="Repeat Password" required /><br>
 
         <input class="btn" type="submit" name="submit" value="Submit"/> <br>
   			<!-- <a><div class="btn">Sign Up</div></a> -->
   		</div> 
-  	</form>
+	  </form>
+	</div>
   </div>
 
 <style>
@@ -52,23 +55,24 @@ body{
 
 .box{
   background:white;
-  width:300px;
+  width:95%;
   border-radius:6px;
   margin: 0 auto 0 auto;
   padding:0px 0px 0px 0px;
-  border: black 4px solid;
+  border: black 1px solid;
+  background-image: url('/signupbackground');
 }
 
 .btn{
-  background: cornflowerblue;
+  background: rgb(218, 214, 233);
   width:125px;
   padding-top:5px;
   padding-bottom:5px;
-  color:white;
+  color:black;
   border-radius:4px;
-  font-size: large;
+  font-weight:bold;
   border: transparent;
-  
+  font-family: Segoe Script;
   margin-top:20px;
   margin-bottom:20px;
   float:middle;
