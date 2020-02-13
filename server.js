@@ -4,6 +4,16 @@ var router = express.Router();
 var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
 
+const bodyParser=require("body-parser");
+
+app.use(express.static(__dirname));
+app.use('/css',express.static(__dirname +'/css'));
+app.use(bodyParser.json());
+app.use(express.static('views'));
+app.use(bodyParser.urlencoded({
+	extended: true
+}))
+
 router.use(function (req,res,next) {
   console.log("/" + req.method);
   next();
@@ -26,7 +36,7 @@ router.get("/contact",function(req,res){
 });
 
 router.get("/login",function(req,res){
-  res.sendFile(path + "login.html");
+  res.sendFile(path + "test.html");
 });
 
 router.get("/signup",function(req,res){
@@ -42,3 +52,4 @@ app.use("*",function(req,res){
 app.listen(3000,function(){
   console.log("Live at Port 3000");
 });
+

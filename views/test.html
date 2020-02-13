@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="test.css">
+</head>
+<body>
+	<div class="headerTitle">
+		<img src="/img" alt="logo" width="120" height="100">
+		<h1> Virtual Connections </h1>
+	</div>
+	<br>
+
+	<div class="sidebar">
+		<nav class="navi" role="navigation">
+			<ul class="nav navbar-left">
+				<li><a href="/">Home</a></li>
+				<li><a href="/about">About Us</a></li>
+				<li><a href="/contact">Contact Us</a></li>
+				<li class="active"><a href="/login">Log In<span class="sr-only">(current)</span></a></li>
+				<li><a href="/signup">Sign Up</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+	<div class="main">
+		<div class="form1">
+			<form action="/sign_up" method="post">
+				<h2> Welcome! </h2>
+				<p>Please use RCS ID for Username</p>
+				<input type="username" name="username" id="username" placeholder="Username" required />
+				<br>
+				<br>
+				<input type="password" name="password" id="password" placeholder="Password" required />
+				<br>
+				<br>
+				<input type="submit" value="Log In" />
+				<input type="button" value="Create Account" /><br>
+				</form>
+		</div>
+	</div>	
+</body>
+</html>
