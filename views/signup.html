@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <title>Signup Form</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div>
+  	<br/>
+  	<div class="headerTitle" style="margin-left: 0px;">
+  		<img src="/logoimg" alt="logo" width="120" height="100">
+  		<h1 style="display: inline-block; font-family: Segoe Script; font-weight:bold;"> Virtual Connections </h1>
+  	</div>
+  	<div class="sidebar" style="width: 15%; float:left">
+  		<nav class="navi" role="navigation">
+  			<ul class="nav navbar-left">
+  				<li><a href="/">Home</a></li>
+  				<li><a href="/about">About Us</a></li>
+  				<li><a href="/contact">Contact Us</a></li>
+  				<li><a href="/login">Log In</a></li>
+          
+  			</ul>
+  		</nav>
+  	</div>
+
+	  <br/>
+	  <div id="signup-form" style="width:85% ; float:right; ">
+  	<form style="text-align:center;font-family: decorative;" method="post">
+  		<div class="box">
+  			<h2 style="color:white;font-family: Segoe Script; font-weight:bold;"> Join Virtual Connections! </h2>
+			  <p style="color:black;font-family: Segoe Script; font-weight:bold;">Please use RCS ID for Username</p>
+			  <p style="color:black;font-family: Segoe Script; font-weight:bold;">Please choose a password longer than 6 characters</p>
+			  <input style="margin-bottom: 3px;" type="firstname" name="firstname" id="firstname" placeholder="First Name" required /> <br>
+			  <input style="margin-bottom: 3px;" type="lastname" name="lastname" id="lastname" placeholder="Last Name" required /> <br>
+  			<input style="margin-bottom: 3px;" type="username" name="username" id="username" placeholder="Username" required /> <br>
+			  
+			  <input style="margin-bottom: 3px;" type="password" name="password" id="password" placeholder="Password" required /><br>
+			  <input style="margin-bottom: 3px;" type="password" name="password" id="password" placeholder="Repeat Password" required /><br>
+
+        <input class="btn" type="submit" name="submit" value="Submit"/> <br>
+  			<!-- <a><div class="btn">Sign Up</div></a> -->
+  		</div> 
+	  </form>
+	</div>
+  </div>
+
+<style>
+body{
+  margin: 0 auto 0 auto;  
+  width:100%; 
+  margin: 20px 0px 20px 0px;   
+}
+
+.box{
+  background:white;
+  width:95%;
+  border-radius:6px;
+  margin: 0 auto 0 auto;
+  padding:0px 0px 0px 0px;
+  border: black 1px solid;
+  background-image: url('/signupbackground');
+}
+
+.btn{
+  background: rgb(218, 214, 233);
+  width:125px;
+  padding-top:5px;
+  padding-bottom:5px;
+  color:black;
+  border-radius:4px;
+  font-weight:bold;
+  border: transparent;
+  font-family: Segoe Script;
+  margin-top:20px;
+  margin-bottom:20px;
+  float:middle;
+  margin-left:16px;
+}
+
+.btn:hover{
+  background:rgb(39, 139, 206); 
+}
+</style>
+</body>
+</html>
