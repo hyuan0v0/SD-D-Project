@@ -7,7 +7,7 @@ var path2 = __dirname + '/img/';
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true});
+mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.urlencoded({
   extended: true
 }));
