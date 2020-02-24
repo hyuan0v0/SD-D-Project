@@ -6,12 +6,26 @@ var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const readline = require("readline");
 const Schema = mongoose.Schema;
 mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.urlencoded({
   extended: true
 }));
+//set up readline variable
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false
+});
 
+//exit on enter
+rl.on("line",(line)=>{
+  if (line === ""){
+    console.log("Goodbye");
+    process.exit(0);
+  }
+})
 //create user schema
 var UserSchema = new Schema({
   firstname: String,
