@@ -1,90 +1,80 @@
 body{
-  font-family: 'Open Sans', sans-serif;
-  background:#3498db;
   margin: 0 auto 0 auto;  
   width:100%; 
-  text-align:center;
-  margin: 20px 0px 20px 0px;   
+  
+  margin: 20px 0px 20px 0px; 
 }
 
-p{
-  font-size:12px;
+.headerTitle {
+  margin-left: 0px;
+}
+
+h1 {
+  display: inline-block;
+}
+
+.sidebar {
+  width: 150px;
+  height: 100%;
+  position: fixed;
+}
+
+.sidebar a {
+  padding: 10px 15px 10px 15px;
   text-decoration: none;
-  color:#ffffff;
+  color: #337ab7;
 }
 
-h1{
-  font-size:1.5em;
-  color:#525252;
+.sidebar a:hover {
+  color: black;
 }
 
-.box{
-  background:white;
-  width:300px;
-  border-radius:6px;
-  margin: 0 auto 0 auto;
-  padding:0px 0px 70px 0px;
-  border: #2980b9 4px solid; 
+.main {
+  margin-left: 150px;
 }
 
-.email{
-  background:#ecf0f1;
-  border: #ccc 1px solid;
-  border-bottom: #ccc 2px solid;
-  padding: 8px;
-  width:250px;
-  color:#AAAAAA;
-  margin-top:10px;
-  font-size:1em;
-  border-radius:4px;
+.form1{ 
+  margin-left: 300px;
+  margin-right: 300px;
+  font-family: 'Georgia', serif;
+  padding: 20px; 
+  border: 4px;
+  border-color: black;
+  border-style: solid;
+  border-radius: 4px;
+  text-align: center;
+} 
+
+input{ 
+  font-family: 'Georgia', serif;
+} 
+
+input[type=submit] { 
+  background: cornflowerblue;
+  width: 45%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+  border-radius: 4px;
+  font-size: large;
+  border: transparent;
 }
 
-.password{
-  border-radius:4px;
-  background:#ecf0f1;
-  border: #ccc 1px solid;
-  padding: 8px;
-  width:250px;
-  font-size:1em;
+input[type=submit]:hover {
+  background: rgb(39, 139, 206); 
 }
 
-.btn{
-  background:#2ecc71;
-  width:125px;
-  padding-top:5px;
-  padding-bottom:5px;
-  color:white;
-  border-radius:4px;
-  border: #27ae60 1px solid;
-  
-  margin-top:20px;
-  margin-bottom:20px;
-  float:left;
-  margin-left:16px;
-  font-weight:800;
-  font-size:0.8em;
+input[type=button] {
+  background: cornflowerblue;
+  width: 45%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+  border-radius: 4px;
+  font-size: large;
+  border: transparent;
 }
 
-.btn:hover{
-  background:#2CC06B; 
-}
-
-#btn2{
-  float:left;
-  background:#3498db;
-  width:125px;  padding-top:5px;
-  padding-bottom:5px;
-  color:white;
-  border-radius:4px;
-  border: #2980b9 1px solid;
-  
-  margin-top:20px;
-  margin-bottom:20px;
-  margin-left:10px;
-  font-weight:800;
-  font-size:0.8em;
-}
-
-#btn2:hover{ 
-background:#3594D2; 
+input[type=button]:hover {
+  background: rgb(39, 139, 206); 
 }
