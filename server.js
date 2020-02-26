@@ -76,22 +76,6 @@ db.once("open",()=>{
   console.log("successfully connected");
 })
 
-const bodyParser=require("body-parser");
-const mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:27017/gfg');
-var db=mongoose.connection; 
-db.on('error', console.log.bind(console, "connection error")); 
-db.once('open', function(callback){ 
-    console.log("connection succeeded"); 
-})
-
-app.use(express.static(__dirname));
-app.use('/css',express.static(__dirname +'/css'));
-app.use(bodyParser.json());
-app.use(express.static('views'));
-app.use(bodyParser.urlencoded({
-	extended: true
-}))
 
 router.use(function (req,res,next) {
   console.log("/" + req.method);
@@ -146,17 +130,23 @@ app.listen(3000,function(){
   console.log("Live at Port 3000");
 });
 
-app.post('/sign_up',function(req,res){ 
-	var username = req.body.username;
-	var pass = req.body.password;
-
-  var data = { 
-		"username": username,
-		"password":pass,
-	}
-  db.collection('details').insertOne(data,function(err,collection){ 
-    if (err) throw err;
-    console.log("Record inserted Successfully");
+//registring an accoutn
+router.post("/signup",(req,res) => {
+  console.log(req.body);
+  if (req.body.password[0] === req.body.password[1]){
+    console.log("password good");
+  }
+  var userData = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password[0]
+  }
+  User.create(userData, (err,user) => {
+    if (err){
+      console.log(err);
+    } else {
+      return res.redirect("/login");
+    }
   });
-  return res.redirect('signup_success.html');
 });
