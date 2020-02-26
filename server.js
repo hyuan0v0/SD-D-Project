@@ -5,6 +5,13 @@ var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
 
 const bodyParser=require("body-parser");
+const mongoose = require("mongoose");
+mongoose.connect('mongodb://localhost:27017/gfg');
+var db=mongoose.connection; 
+db.on('error', console.log.bind(console, "connection error")); 
+db.once('open', function(callback){ 
+    console.log("connection succeeded"); 
+})
 
 app.use(express.static(__dirname));
 app.use('/css',express.static(__dirname +'/css'));
@@ -36,7 +43,7 @@ router.get("/contact",function(req,res){
 });
 
 router.get("/login",function(req,res){
-  res.sendFile(path + "test.html");
+  res.sendFile(path + "login.html");
 });
 
 router.get("/signup",function(req,res){
@@ -53,3 +60,17 @@ app.listen(3000,function(){
   console.log("Live at Port 3000");
 });
 
+app.post('/sign_up',function(req,res){ 
+	var username = req.body.username;
+	var pass = req.body.password;
+
+  var data = { 
+		"username": username,
+		"password":pass,
+	}
+  db.collection('details').insertOne(data,function(err,collection){ 
+    if (err) throw err;
+    console.log("Record inserted Successfully");
+  });
+  return res.redirect('signup_success.html');
+})
