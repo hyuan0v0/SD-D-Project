@@ -4,7 +4,6 @@ var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
-const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const readline = require("readline");
 const Schema = mongoose.Schema;
@@ -132,32 +131,6 @@ router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
 });
 
-//registring an accoutn
-router.post("/signup",(req,res) => {
-  console.log(req.body);
-  if (req.body.password[0] === req.body.password[1]){
-    console.log("password good");
-  }
-  var userData = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    password: req.body.password[0]
-  }
-  User.create(userData, (err,user) => {
-    if (err){
-      console.log(err);
-    } else {
-      return res.redirect("/login");
-    }
-  });
-});
-
-//logging in 
-router.post("/login", (req,res) => {
-  console.log(req.body);
-  User.authenticate(req.body.email,req.body.password,console.log);
-})
 
 router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
