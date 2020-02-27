@@ -6,6 +6,7 @@ var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
 const mongoose = require("mongoose");
 const readline = require("readline");
+const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.urlencoded({
@@ -114,6 +115,9 @@ router.get("/login",function(req,res){
 router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
 });
+router.get("/signup_success",function(req,res){
+  res.sendFile(path+"signup_success.html");
+})
 
 
 router.get("/signup",function(req,res){
@@ -146,7 +150,7 @@ router.post("/signup",(req,res) => {
     if (err){
       console.log(err);
     } else {
-      return res.redirect("/login");
+      return res.redirect("signup_success");
     }
   });
 });
