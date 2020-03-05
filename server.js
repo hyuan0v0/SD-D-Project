@@ -7,11 +7,30 @@ var path2 = __dirname + '/img/';
 const mongoose = require("mongoose");
 const readline = require("readline");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const Schema = mongoose.Schema;
 mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.urlencoded({
   extended: true
 }));
+app.use(cookieParser());
+app.use(session({
+  key: "user_sid",
+  secret: "3214124312",
+  resave: true,
+  saveUninitialized: false,
+  cookie: {
+    expires: 600000
+  }
+}));
+
+app.use((req, res, next) => {
+  if (req.cookies.user_sid && !req.session.user) {
+      res.clearCookie('user_sid');        
+  }
+  next();
+});
 //set up readline variable
 var rl = readline.createInterface({
   input: process.stdin,
@@ -48,25 +67,6 @@ UserSchema.pre("save", function(next) {
   });
 });
 
-UserSchema.statics.authenticate = (email,password,callback) => {
-  User.findOne({ email: email})
-    .exec((err,user)=>{
-      if (err){
-        return callback(err);
-      } else if (!user) {
-        var err = new Error("User not found");
-        err.status = 401;
-        return callback(err);
-      }
-      bcrypt.compare(password,user.password,(err,result) => {
-        if (result === true){
-          return callback(null,user);
-        } else {
-          return callback();
-        }
-      });
-    });
-}
 
 //create user model
 var User = mongoose.model("User", UserSchema);
@@ -109,6 +109,10 @@ router.get("/contact",function(req,res){
   res.sendFile(path + "contact.html");
 });
 
+router.get("/dashboard",function(req,res){
+  res.sendfile(path+"dashboard.html");
+});
+
 router.get("/login",function(req,res){
   res.sendFile(path + "login.html");
 });
@@ -134,8 +138,33 @@ app.listen(3000,function(){
   console.log("Live at Port 3000");
 });
 
+router.post("/login", (req,res)=>{
+  console.log(req.body);
+  
+  User.findOne({ email: req.body.inputEmail})
+    .exec((err,user)=>{
+      if (err){
+        console.log(err);
+      } else if (!user) {
+        var err = new Error("User not found");
+        err.status = 401;
+        console.log(err);
+      }
+      bcrypt.compare(req.body.password,user.password,(err,result) => {
+        if (result === true){
+          console.log(user)
+          req.session.user = user._id;
+          res.redirect("dashboard")
+        } else {
+          var err = new Error("Incorrect password");
+        }
+      });
+    });
+})
+
 //registring an accoutn
 router.post("/signup",(req,res) => {
+  
   console.log(req.body);
   if (req.body.password[0] === req.body.password[1]){
     console.log("password good");
@@ -143,13 +172,15 @@ router.post("/signup",(req,res) => {
   var userData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    email: req.body.email,
+    email: req.body.inputEmail,
     password: req.body.password[0]
   }
   User.create(userData, (err,user) => {
     if (err){
       console.log(err);
     } else {
+      console.log("sent:");
+      console.log(userData);
       return res.redirect("signup_success");
     }
   });
