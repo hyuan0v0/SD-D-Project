@@ -6,10 +6,9 @@ var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
 const mongoose = require("mongoose");
 const readline = require("readline");
-const bcrypt = require("bcrypt");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const Schema = mongoose.Schema;
+const User = require("./user.js");
 mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.urlencoded({
   extended: true
@@ -45,31 +44,12 @@ rl.on("line",(line)=>{
     process.exit(0);
   }
 })
-//create user schema
-var UserSchema = new Schema({
-  firstname: String,
-  lastname: String,
-  email: String,
-  password: String
-});
-
-UserSchema.pre("save", function(next) {
-  console.log(this);
-  var user = this;
-  console.log(user.password)
-  bcrypt.hash(user.password,10,(err,hash)=>{
-    if (err){
-      console.log(err);
-      return err;
-    }
-    user.password = hash;
-    next();
-  });
-});
 
 
-//create user model
-var User = mongoose.model("User", UserSchema);
+
+
+
+
 
 var db = mongoose.connection;
 db.on("error",console.error.bind(console,"connection error"));
@@ -141,26 +121,15 @@ app.listen(3000,function(){
 router.post("/login", (req,res)=>{
   console.log(req.body);
   
-  User.findOne({ email: req.body.inputEmail})
-    .exec((err,user)=>{
-      if (err){
-        console.log(err);
-      } else if (!user) {
-        var err = new Error("User not found");
-        err.status = 401;
-        console.log(err);
-      }
-      bcrypt.compare(req.body.password,user.password,(err,result) => {
-        if (result === true){
-          console.log(user)
-          req.session.user = user._id;
-          res.redirect("dashboard")
-        } else {
-          var err = new Error("Incorrect password");
-        }
-      });
-    });
-})
+  User.authenticate(User, req.body.inputEmail,req.body.password, (err, user) =>{
+    if (err){
+      return err;
+    } else {
+      req.session.user = user._id;
+      res.redirect("dashboard");
+    }
+  });
+});
 
 //registring an accoutn
 router.post("/signup",(req,res) => {
@@ -175,13 +144,20 @@ router.post("/signup",(req,res) => {
     email: req.body.inputEmail,
     password: req.body.password[0]
   }
-  User.create(userData, (err,user) => {
-    if (err){
-      console.log(err);
-    } else {
-      console.log("sent:");
-      console.log(userData);
-      return res.redirect("signup_success");
-    }
+  User.init().then(() => {
+    User.create(userData, (err,user) => {
+      if (err){
+        if (err.code === 11000){
+          return res.status(400).json({
+            msg: "User already exists"
+          })
+        }
+        console.log(err);
+      } else {
+        console.log("sent:");
+        console.log(userData);
+        return res.redirect("signup_success");
+      }
+    });
   });
 });
