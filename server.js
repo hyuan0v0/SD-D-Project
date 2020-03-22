@@ -124,6 +124,10 @@ router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
 });
 
+router.get("/creategroup",function(req,res){
+  res.sendFile(path + "createGroup.html");
+});
+
 app.use("/",router);
 
 app.use("*",function(req,res){
