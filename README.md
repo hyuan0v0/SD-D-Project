@@ -15,3 +15,14 @@ running on port 3000, so simply type
 `localhost:3000`
 
 into your browser to view the site
+
+#Connecting to the database
+To connect to the database, simply create a `.env` file in the same directory as
+the project. The `.env` file needs to have a single line which is:
+
+`MONGO_URL=<insert connection url here>`
+
+To get the url, simply go to https://cloud.mongodb.com and log in, then hit
+connect on the cluster, and select connect your application. You will need a
+username and password, which can be generated under security with database
+accesses.
