@@ -128,7 +128,7 @@ router.get("/creategroup",function(req,res){
 });
 
 router.get("/getClass",function(req,res){
-  console.log("searching for class")
+  console.log("Creating Group")
   res.sendFile(path + "createGroup.html");
 });
 
