@@ -7,7 +7,7 @@ in cmd/terminal, type
 
 to get all of the required packages installed. Afterwards simply run
 
-`node start`
+`npm start`
 
 to start the server. To view the page, the server defaults to
 running on port 3000, so simply type
@@ -26,3 +26,4 @@ To get the url, simply go to https://cloud.mongodb.com and log in, then hit
 connect on the cluster, and select connect your application. You will need a
 username and password, which can be generated under security with database
 accesses.
+Note: Currently need to make ask a team member to make a username and password for you
