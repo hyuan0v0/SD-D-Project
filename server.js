@@ -48,6 +48,7 @@ UserSchema.pre("save", function(next) {
   });
 });
 
+//authenticate user log in
 UserSchema.statics.authenticate = (email,password,callback) => {
   User.findOne({ email: email})
     .exec((err,user)=>{
@@ -77,7 +78,7 @@ db.once("open",()=>{
   console.log("successfully connected");
 })
 
-
+//site navigation
 router.use(function (req,res,next) {
   console.log("/" + req.method);
   next();
@@ -138,11 +139,12 @@ app.use("*",function(req,res){
   res.sendFile(path + "404.html");
 });
 
+//local host running message
 app.listen(3000,function(){
   console.log("Live at Port 3000");
 });
 
-//registring an accoutn
+//registring an account
 router.post("/signup",(req,res) => {
   console.log(req.body);
   if (req.body.password[0] === req.body.password[1]){
