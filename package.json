@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hyuan0v0/SD-D-Project#readme",
   "dependencies": {
+<<<<<<< HEAD
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -24,6 +25,15 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongoose": "^5.9.6",
+=======
+    "bcrypt": "^4.0.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.9.2",
+>>>>>>> test-cal
     "readline": "^1.3.0"
   }
 }
