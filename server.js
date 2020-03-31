@@ -137,7 +137,7 @@ router.post("/login", (req,res)=>{
   });
 });
 
-//registring an accoutn
+//registring an account
 router.post("/signup",(req,res) => {
   
   console.log(req.body);
