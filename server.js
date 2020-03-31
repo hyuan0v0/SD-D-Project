@@ -9,6 +9,7 @@ const readline = require("readline");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const User = require("./user.js");
+const Schema = mongoose.Schema;
 mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.urlencoded({
   extended: true
@@ -45,28 +46,11 @@ rl.on("line",(line)=>{
   }
 })
 
-var ClassSchema = new Schema({
-  classname: String,
-  crn: String,
-  
-});
-
-
-
-
-var Class = mongoose.model("Class", ClassSchema);
-
-
-
-
-
-
 var db = mongoose.connection;
 db.on("error",console.error.bind(console,"connection error"));
 db.once("open",()=>{
   console.log("successfully connected");
 })
-
 
 router.use(function (req,res,next) {
   console.log("/" + req.method);
@@ -177,6 +161,15 @@ router.post("/signup",(req,res) => {
     });
   });
 });
+
+//Courselist Database Setup
+var ClassSchema = new Schema({
+  classname: String,
+  crn: String,
+  
+});
+
+var Class = mongoose.model("Class", ClassSchema);
 
 router.post("/class",(req,res) => {
   console.log(req.body);
