@@ -6,12 +6,30 @@ var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
 const mongoose = require("mongoose");
 const readline = require("readline");
-const bcrypt = require("bcrypt");
-const Schema = mongoose.Schema;
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const User = require("./user.js");
 mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.urlencoded({
   extended: true
 }));
+app.use(cookieParser());
+app.use(session({
+  key: "user_sid",
+  secret: "3214124312",
+  resave: true,
+  saveUninitialized: false,
+  cookie: {
+    expires: 600000
+  }
+}));
+
+app.use((req, res, next) => {
+  if (req.cookies.user_sid && !req.session.user) {
+      res.clearCookie('user_sid');        
+  }
+  next();
+});
 //set up readline variable
 var rl = readline.createInterface({
   input: process.stdin,
@@ -26,13 +44,6 @@ rl.on("line",(line)=>{
     process.exit(0);
   }
 })
-//create user schema
-var UserSchema = new Schema({
-  firstname: String,
-  lastname: String,
-  email: String,
-  password: String
-});
 
 var ClassSchema = new Schema({
   classname: String,
@@ -40,44 +51,15 @@ var ClassSchema = new Schema({
   
 });
 
-UserSchema.pre("save", function(next) {
-  console.log(this);
-  var user = this;
-  console.log(user.password)
-  bcrypt.hash(user.password,10,(err,hash)=>{
-    if (err){
-      console.log(err);
-      return err;
-    }
-    user.password = hash;
-    next();
-  });
-});
 
-//authenticate user log in
-UserSchema.statics.authenticate = (email,password,callback) => {
-  User.findOne({ email: email})
-    .exec((err,user)=>{
-      if (err){
-        return callback(err);
-      } else if (!user) {
-        var err = new Error("User not found");
-        err.status = 401;
-        return callback(err);
-      }
-      bcrypt.compare(password,user.password,(err,result) => {
-        if (result === true){
-          return callback(null,user);
-        } else {
-          return callback();
-        }
-      });
-    });
-}
 
-//create user model
-var User = mongoose.model("User", UserSchema);
+
 var Class = mongoose.model("Class", ClassSchema);
+
+
+
+
+
 
 var db = mongoose.connection;
 db.on("error",console.error.bind(console,"connection error"));
@@ -85,7 +67,7 @@ db.once("open",()=>{
   console.log("successfully connected");
 })
 
-//site navigation
+
 router.use(function (req,res,next) {
   console.log("/" + req.method);
   next();
@@ -117,11 +99,18 @@ router.get("/contact",function(req,res){
   res.sendFile(path + "contact.html");
 });
 
+router.get("/dashboard",function(req,res){
+  res.sendfile(path+"dashboard.html");
+});
+
 router.get("/login",function(req,res){
   res.sendFile(path + "login.html");
 });
 router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
+});
+router.get("/calendar",function(req,res){
+  res.sendFile(path + "calendar.html");
 });
 router.get("/signup_success",function(req,res){
   res.sendFile(path+"signup_success.html");
@@ -131,13 +120,8 @@ router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
 });
 
-router.get("/creategroup",function(req,res){
-  res.sendFile(path + "createGroup.html");
-});
-
-router.get("/getClass",function(req,res){
-  console.log("Creating Group")
-  res.sendFile(path + "createGroup.html");
+router.get("/signup",function(req,res){
+  res.sendFile(path + "signup.html");
 });
 
 app.use("/",router);
@@ -146,13 +130,26 @@ app.use("*",function(req,res){
   res.sendFile(path + "404.html");
 });
 
-//local host running message
 app.listen(3000,function(){
   console.log("Live at Port 3000");
 });
 
-//registring an account
+router.post("/login", (req,res)=>{
+  console.log(req.body);
+  
+  User.authenticate(User, req.body.inputEmail,req.body.password, (err, user) =>{
+    if (err){
+      return err;
+    } else {
+      req.session.user = user._id;
+      res.redirect("dashboard");
+    }
+  });
+});
+
+//registring an accoutn
 router.post("/signup",(req,res) => {
+  
   console.log(req.body);
   if (req.body.password[0] === req.body.password[1]){
     console.log("password good");
@@ -160,15 +157,24 @@ router.post("/signup",(req,res) => {
   var userData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    email: req.body.email,
+    email: req.body.inputEmail,
     password: req.body.password[0]
   }
-  User.create(userData, (err,user) => {
-    if (err){
-      console.log(err);
-    } else {
-      return res.redirect("signup_success");
-    }
+  User.init().then(() => {
+    User.create(userData, (err,user) => {
+      if (err){
+        if (err.code === 11000){
+          return res.status(400).json({
+            msg: "User already exists"
+          })
+        }
+        console.log(err);
+      } else {
+        console.log("sent:");
+        console.log(userData);
+        return res.redirect("signup_success");
+      }
+    });
   });
 });
 
