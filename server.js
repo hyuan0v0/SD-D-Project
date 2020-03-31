@@ -99,19 +99,12 @@ router.get("/login",function(req,res){
 router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
 });
-<<<<<<< HEAD
-router.get("/signup_success",function(req,res){
-  res.sendFile(path+"signup_success.html");
-})
-
-=======
 router.get("/calendar",function(req,res){
   res.sendFile(path + "calendar.html");
 });
 router.get("/signup_success",function(req,res){
   res.sendFile(path+"signup_success.html");
 })
->>>>>>> test-cal
 
 router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
