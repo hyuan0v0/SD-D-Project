@@ -34,6 +34,12 @@ var UserSchema = new Schema({
   password: String
 });
 
+var ClassSchema = new Schema({
+  classname: String,
+  crn: String,
+  
+});
+
 UserSchema.pre("save", function(next) {
   console.log(this);
   var user = this;
@@ -71,6 +77,7 @@ UserSchema.statics.authenticate = (email,password,callback) => {
 
 //create user model
 var User = mongoose.model("User", UserSchema);
+var Class = mongoose.model("Class", ClassSchema);
 
 var db = mongoose.connection;
 db.on("error",console.error.bind(console,"connection error"));
@@ -163,4 +170,27 @@ router.post("/signup",(req,res) => {
       return res.redirect("signup_success");
     }
   });
+});
+
+router.post("/class",(req,res) => {
+  console.log(req.body);
+  var userData = {
+    classname: req.body.classname,
+    crn: req.body.crn,
+    
+  }
+  Class.create(userData, (err,user) => {
+    if (err){
+      console.log(err);
+    } else {
+		return res.sendStatus(200)
+	}
+  });
+});
+
+router.get("/class",function(req,res){
+  Class.find({},function(err, item) {
+      console.log(item);
+    })
+  return res.sendStatus(200)
 });
