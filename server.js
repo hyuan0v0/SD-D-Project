@@ -114,6 +114,15 @@ router.get("/signup",function(req,res){
   res.sendFile(path + "signup.html");
 });
 
+router.get("/creategroup",function(req,res){
+  res.sendFile(path + "creategroup.html");
+});
+
+router.get("/getClass",function(req,res){
+  console.log("Creating group");
+  res.sendFile(path + "creategroup.html");
+});
+
 app.use("/",router);
 
 app.use("*",function(req,res){
