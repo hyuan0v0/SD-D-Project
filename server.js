@@ -4,6 +4,7 @@ var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
+const fs = require("fs");
 const mongoose = require("mongoose");
 const readline = require("readline");
 const session = require("express-session");
@@ -86,7 +87,9 @@ router.get("/contact", function (req, res) {
 });
 
 router.get("/dashboard", requireLogin, function (req, res,next) {
-    res.sendfile(path + "dashboard.html");
+    let html = fs.readFileSync(path+"dashboard.html","utf8");
+    html = html.replace("$USER", req.session.firstname);
+    res.send(html);
 });
 
 
@@ -129,6 +132,7 @@ router.post("/login", (req, res) => {
             return err;
         } else {
             req.session.user = user._id;
+            req.session.firstname = user.firstname;
             res.redirect("dashboard");
         }
     });
