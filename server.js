@@ -103,8 +103,8 @@ router.get("/signup_success", function (req, res) {
     res.sendFile(path + "signup_success.html");
 })
 
-router.get("/signup", function (req, res) {
-    res.sendFile(path + "signup.html");
+router.get("/creategroup",function(req,res){
+  res.sendFile(path + "creategroup.html");
 });
 
 router.get("/signup", function (req, res) {
