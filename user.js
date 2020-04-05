@@ -53,7 +53,7 @@ UserSchema.statics.authenticate = function (User, email, password, callback) {
             } else {
             return callback();
             }
-        })
+        });
     });
 }
 
