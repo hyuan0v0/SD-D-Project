@@ -11,6 +11,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const User = require("./user.js");
 const Schema = mongoose.Schema;
+<<<<<<< Updated upstream
 const requireLogin = require("./middleware/requireLogin.js");
 var bodyParser = require('body-parser');
 
@@ -23,9 +24,15 @@ var groupSchema = new mongoose.Schema({
 var Group = mongoose.model("Group", groupSchema);
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+=======
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
+>>>>>>> Stashed changes
 app.use(express.urlencoded({
     extended: true
 }));
+
 app.use(cookieParser());
 app.use(session({
     key: "user_sid",
@@ -209,24 +216,25 @@ var ClassSchema = new Schema({
 
 var Class = mongoose.model("Class", ClassSchema);
 
-router.post("/class", (req, res) => {
-    console.log(req.body);
-    var userData = {
-        classname: req.body.classname,
-        crn: req.body.crn,
-    }
-    Class.create(userData, (err, user) => {
-        if (err) {
-            console.log(err);
-        } else {
-            return res.sendStatus(200)
-        }
-    });
+router.post("/class",(req,res) => {
+  console.log(req.body);
+  var userData = {
+    classname: req.body.classname,
+    crn: req.body.crn,
+    
+  }
+  Class.create(userData, (err,user) => {
+    if (err){
+      console.log(err);
+    } else {
+		return res.sendStatus(200)
+	}
+  });
 });
 
-router.get("/class", function (req, res) {
-    Class.find({}, function (err, item) {
-        console.log(item);
+router.get("/class",function(req,res){
+  Class.find({},function(err, item) {
+      console.log(item);
+	  res.render("creategroup",{item: item});
     })
-    return res.sendStatus(200)
 });
