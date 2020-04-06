@@ -218,31 +218,7 @@ router.post("/class", (req, res) => {
     });
 });
 
-//Courselist Database Setup
-var ClassSchema = new Schema({
-    classname: String,
-    crn: String,
 
-});
-
-var Class = mongoose.model("Class", ClassSchema);
-
-router.post("/class", (req, res) => {
-    console.log(req.body);
-    var userData = {
-        classname: req.body.classname,
-        crn: req.body.crn,
-
-    }
-
-    Class.create(userData, (err, user) => {
-        if (err) {
-            console.log(err);
-        } else {
-            return res.sendStatus(200)
-        }
-    });
-});
 
 router.get("/class", function (req, res) {
     Class.find({}, function (err, item) {
