@@ -139,6 +139,14 @@ router.get("/dashboard", requireLogin, function (req, res,next) {
 router.get("/login", function (req, res) {
     res.sendFile(path + "login.html");
 });
+
+router.get("/logout", function(req,res) {
+    req.session.user = null;
+    req.session.firstname = null;
+    res.clearCookie("user_id");
+    res.redirect("/");
+})
+
 router.get("/signup", function (req, res) {
     res.sendFile(path + "signup.html");
 });
