@@ -4,6 +4,10 @@ var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
+
+var path3 = __dirname + '/js/';
+var path4 = __dirname + '/css/';
+
 const fs = require("fs");
 const mongoose = require("mongoose");
 const readline = require("readline");
@@ -62,6 +66,14 @@ router.use(function (req, res, next) {
 
 router.get("/", function (req, res) {
     res.sendFile(path + "index.html");
+
+});
+router.get("/cal", function (req, res) {
+    res.sendFile(path3 + "calendar.js");
+});
+router.get("/calcss", function (req, res) {
+    res.sendFile(path4 + "calendar.css");
+
 });
 router.get("/logoimg", function (req, res) { });
 
@@ -150,6 +162,7 @@ router.post("/signup", (req, res) => {
         lastname: req.body.lastname,
         email: req.body.inputEmail,
         password: req.body.password[0]
+
     }
     User.init().then(() => {
         User.create(userData, (err, user) => {
@@ -185,6 +198,43 @@ router.post("/class", (req, res) => {
         crn: req.body.crn,
 
     }
+
+    }
+    User.init().then(() => {
+        User.create(userData, (err, user) => {
+            if (err) {
+                if (err.code === 11000) {
+                    return res.status(400).json({
+                        msg: "User already exists"
+                    })
+                }
+                console.log(err);
+            } else {
+                console.log("sent:");
+                console.log(userData);
+                return res.redirect("signup_success");
+            }
+        });
+    });
+});
+
+//Courselist Database Setup
+var ClassSchema = new Schema({
+    classname: String,
+    crn: String,
+
+});
+
+var Class = mongoose.model("Class", ClassSchema);
+
+router.post("/class", (req, res) => {
+    console.log(req.body);
+    var userData = {
+        classname: req.body.classname,
+        crn: req.body.crn,
+
+    }
+
     Class.create(userData, (err, user) => {
         if (err) {
             console.log(err);
