@@ -199,7 +199,7 @@ router.post("/class", (req, res) => {
 
     }
 
-    }
+    
     User.init().then(() => {
         User.create(userData, (err, user) => {
             if (err) {
