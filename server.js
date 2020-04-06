@@ -53,7 +53,7 @@ app.post("/makegroup", requireLogin, (req, res, next) => {
 
   var groupData = {
         classname: req.body.classpicker,
-        meetingday: req.body.crn,
+        meetingday: req.body.daypicker,
         meetingtime: req.body.timepicker,
         members: [userName]
     }
