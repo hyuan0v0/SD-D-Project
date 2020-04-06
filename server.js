@@ -4,6 +4,10 @@ var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
+
+var path3 = __dirname + '/js/';
+var path4 = __dirname + '/css/';
+
 const fs = require("fs");
 const mongoose = require("mongoose");
 const readline = require("readline");
@@ -101,6 +105,14 @@ router.use(function (req, res, next) {
 
 router.get("/", function (req, res) {
     res.sendFile(path + "index.html");
+
+});
+router.get("/cal", function (req, res) {
+    res.sendFile(path3 + "calendar.js");
+});
+router.get("/calcss", function (req, res) {
+    res.sendFile(path4 + "calendar.css");
+
 });
 router.get("/logoimg", function (req, res) { });
 
@@ -134,6 +146,14 @@ router.get("/dashboard", requireLogin, function (req, res,next) {
 router.get("/login", function (req, res) {
     res.sendFile(path + "login.html");
 });
+
+router.get("/logout", function(req,res) {
+    req.session.user = null;
+    req.session.firstname = null;
+    res.clearCookie("user_id");
+    res.redirect("/");
+})
+
 router.get("/signup", function (req, res) {
     res.sendFile(path + "signup.html");
 });
@@ -189,6 +209,7 @@ router.post("/signup", (req, res) => {
         lastname: req.body.lastname,
         email: req.body.inputEmail,
         password: req.body.password[0]
+
     }
     User.init().then(() => {
         User.create(userData, (err, user) => {
@@ -238,3 +259,4 @@ router.get("/class",function(req,res){
 	  res.render("creategroup",{item: item});
     })
 });
+
