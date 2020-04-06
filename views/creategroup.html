@@ -55,37 +55,51 @@
   <div class="container p-0">
     <h1>Create Group</h1>
     <br>
-    <form id="tableForm" action="/getClass" method="get">
+    <form id="tableForm" action="/makegroup" method="post">
       <ul style="list-style-type:none">
         <li>
-          <select class="selectpicker" data-style="btn-info" name="selectpicker">
+          <select class="selectpicker" data-style="btn-info" name="classpicker">
             <optgroup label="Select Class">
               <option name="" value="0">Select Class</option>
-              <option name="table1" value="1">Table 1</option>
-              <option name="table2" value="2">Table 2</option>
-              <option name="table3" value="3">Table 3</option>
+              <option name="Computer Science 1" value="cs1">Computer Science</option>
+              <option name="Data Structures" value="ds">Data Structures</option>
+              <option name="FOCS" value="focs">FOCS</option>
             </optgroup>
           </select>
         </li>
         <br>
         <li>
-          <select class="selectpicker" data-style="btn-info" name="selectpicker">
+          <select class="selectpicker" data-style="btn-info" name="daypicker">
             <optgroup label="Select Meeting Day">
               <option name="" value="0">Select Meeting Day</option>
-              <option name="table1" value="1">Table 1</option>
-              <option name="table2" value="2">Table 2</option>
-              <option name="table3" value="3">Table 3</option>
+              <option name="Monday" value="Monday">Monday</option>
+              <option name="Tuesday" value="Tuesday">Tuesday</option>
+              <option name="Wednesday" value="Wednesday">Wednesday</option>
+              <option name="Thursday" value="Thursday">Thursday</option>
+              <option name="Friday" value="Friday">Friday</option>
             </optgroup>
           </select>
         </li>
         <br>
         <li>
-          <select class="selectpicker" data-style="btn-info" name="selectpicker">
+          <select class="selectpicker" data-style="btn-info" name="timepicker">
             <optgroup label="Select Meeting Time">
               <option name="" value="0">Select Meeting Time</option>
-              <option name="table1" value="1">Table 1</option>
-              <option name="table2" value="2">Table 2</option>
-              <option name="table3" value="3">Table 3</option>
+              <option name="10am" value="10">10:00 am</option>
+              <option name="10.5am" value="10.5">10:30 am</option>
+              <option name="11am" value="11">11:00 am</option>
+              <option name="11.5am" value="11.5">11:30 am</option>
+              <option name="12am" value="12">12:00 pm</option>
+              <option name="12.5pm" value="12.5">12:30 pm</option>
+              <option name="1pm" value="1">1:00 pm</option>
+              <option name="1.5pm" value="1.5">1:30 pm</option>
+              <option name="2pm" value="2">2:00 pm</option>
+              <option name="2.5pm" value="2.5">2:30 pm</option>
+              <option name="3pm" value="3">3:00 pm</option>
+              <option name="3.5pm" value="3.5">3:30 pm</option>
+              <option name="4pm" value="4">4:00 pm</option>
+              <option name="4.5pm" value="4.5">4:30 pm</option>
+              <option name="5pm" value="5">5:00 pm</option>
             </optgroup>
           </select>
         </li>

@@ -16,6 +16,15 @@ const cookieParser = require("cookie-parser");
 const User = require("./user.js");
 const Schema = mongoose.Schema;
 const requireLogin = require("./middleware/requireLogin.js");
+var bodyParser = require('body-parser');
+
+var groupSchema = new mongoose.Schema({
+ classname: String,
+ meetingday: String,
+ meetingtime: String,
+ members: [String]
+});
+var Group = mongoose.model("Group", groupSchema);
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(express.urlencoded({
@@ -37,6 +46,29 @@ app.use((req, res, next) => {
         res.clearCookie('user_sid');
     }
     next();
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.post("/makegroup", requireLogin, (req, res, next) => {
+  var userName = req.session.firstname;
+  userName.concat(" ");
+  userName.concat(req.session.lastname);
+
+  var groupData = {
+        classname: req.body.classpicker,
+        meetingday: req.body.daypicker,
+        meetingtime: req.body.timepicker,
+        members: [userName]
+    }
+    Group.create(groupData, (err, user) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Adding group to the database:");
+            console.log(groupData);
+        }
+    });
 });
 //set up readline variable
 var rl = readline.createInterface({
@@ -104,7 +136,6 @@ router.get("/dashboard", requireLogin, function (req, res,next) {
     res.send(html);
 });
 
-
 router.get("/login", function (req, res) {
     res.sendFile(path + "login.html");
 });
@@ -122,8 +153,9 @@ router.get("/creategroup",function(req,res){
   res.sendFile(path + "creategroup.html");
 });
 
-router.get("/signup", function (req, res) {
-    res.sendFile(path + "signup.html");
+router.get("/getClass",function(req,res){
+  console.log("Creating group");
+  res.sendFile(path + "creategroup.html");
 });
 
 app.use("/", router);
@@ -186,7 +218,6 @@ router.post("/signup", (req, res) => {
 var ClassSchema = new Schema({
     classname: String,
     crn: String,
-
 });
 
 var Class = mongoose.model("Class", ClassSchema);
@@ -196,7 +227,6 @@ router.post("/class", (req, res) => {
     var userData = {
         classname: req.body.classname,
         crn: req.body.crn,
-
     }
 
     
