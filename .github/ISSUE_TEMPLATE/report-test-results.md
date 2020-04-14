@@ -91,6 +91,7 @@ b. If incorrect: System prompts you to re-enter your username and password
 **Did it pass?:**
 
 -------------------------------------if it passed ignore below-------------------------------------
+
 **What browser(and version) are you using?:**
 
 **Are you using any browser plugins that alter behavior? (ie adblock, js script blocker, etc):**
@@ -103,6 +104,5 @@ b. If incorrect: System prompts you to re-enter your username and password
 
 **Error message (if applicable):**
 
--------------------------------------------------------------------------------------------------------------------------------
-	
+---	
 **Additional notes:**
