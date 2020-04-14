@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+# Tests of Current Features:
+
 **Test 1: Signup**
 1. Open the website
 2. Press sign up
