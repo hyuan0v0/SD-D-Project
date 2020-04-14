@@ -273,15 +273,17 @@ function createCalendar(calendar, element, adjuster){
                   closeout.style.top="0";
                   closeout.style.right="0";
                   event_day.appendChild(closeout);
-                  if(document.addEventListener){
-          
-                    closeout.addEventListener('click', function(e) {
+                  document.addEventListener('click', function(e) {
+                    if(e.target.innerText=='x'){
                       e.preventDefault();
-                      alert("hey")
-                      this.parentNode.style.display = 'none';
-                      
-                      }, false);
+                      event_day.style.display="none";
+                      //break;
                     }
+                    
+                    
+                    //this.parentNode.style.display = 'none';
+                    
+                    }, false);
                   event_day.innerHTML+= "<br />"+"Events Scheduled: ";
                   if (eventsToday.indexOf(calendar.Model[n].Title) > -1){
                     //break;
