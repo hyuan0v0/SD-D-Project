@@ -1,9 +1,9 @@
-function createCalendar(e,t,a){function n(){var a=document.createElement("div");a.className+="cld-sidebar";var n=document.createElement("ul");n.className+="cld-monthList";for(var l=0;l<s.length-3;l++){var i=document.createElement("li");i.className+="cld-month";var d=l-(4-e.Selected.Month);if(0>d?d+=12:d>11&&(d-=12),0==l)i.className+=" cld-rwd cld-nav",i.addEventListener("click",function(){"function"==typeof e.Options.ModelChange?e.Model=e.Options.ModelChange():e.Model=e.Options.ModelChange,createCalendar(e,t,-1)}),i.innerHTML+='<svg height="15" width="15" viewBox="0 0 100 75" fill="rgba(255,255,255,0.5)"><polyline points="0,75 100,75 50,0"></polyline></svg>';else if(l==s.length-4)i.className+=" cld-fwd cld-nav",i.addEventListener("click",function(){"function"==typeof e.Options.ModelChange?e.Model=e.Options.ModelChange():e.Model=e.Options.ModelChange,createCalendar(e,t,1)}),i.innerHTML+='<svg height="15" width="15" viewBox="0 0 100 75" fill="rgba(255,255,255,0.5)"><polyline points="0,0 100,0 50,75"></polyline></svg>';else if(4>l?i.className+=" cld-pre":l>4?i.className+=" cld-post":i.className+=" cld-curr",function(){var a=l-4;i.addEventListener("click",function(){"function"==typeof e.Options.ModelChange?e.Model=e.Options.ModelChange():e.Model=e.Options.ModelChange,createCalendar(e,t,a)}),i.setAttribute("style","opacity:"+(1-Math.abs(a)/4)),i.innerHTML+=s[d].substr(0,3)}(),0==d){var o=document.createElement("li");o.className+="cld-year",5>l?o.innerHTML+=e.Selected.Year:o.innerHTML+=e.Selected.Year+1,n.appendChild(o)}n.appendChild(i)}a.appendChild(n),e.Options.NavLocation?(document.getElementById(e.Options.NavLocation).innerHTML="",document.getElementById(e.Options.NavLocation).appendChild(a)):t.appendChild(a)}function l(){var a=document.createElement("div");if(a.className+="cld-datetime",e.Options.NavShow&&!e.Options.NavVertical){var n=document.createElement("div");n.className+=" cld-rwd cld-nav",n.addEventListener("click",function(){createCalendar(e,t,-1)}),n.innerHTML='<svg height="15" width="15" viewBox="0 0 75 100" fill="rgba(0,0,0,0.5)"><polyline points="0,50 75,0 75,100"></polyline></svg>',a.appendChild(n)}var l=document.createElement("div");if(l.className+=" today",l.innerHTML=s[e.Selected.Month]+", "+e.Selected.Year,a.appendChild(l),e.Options.NavShow&&!e.Options.NavVertical){var i=document.createElement("div");i.className+=" cld-fwd cld-nav",i.addEventListener("click",function(){createCalendar(e,t,1)}),i.innerHTML='<svg height="15" width="15" viewBox="0 0 75 100" fill="rgba(0,0,0,0.5)"><polyline points="0,0 75,50 0,100"></polyline></svg>',a.appendChild(i)}e.Options.DatetimeLocation?(document.getElementById(e.Options.DatetimeLocation).innerHTML="",document.getElementById(e.Options.DatetimeLocation).appendChild(a)):r.appendChild(a)}function i(){var e=document.createElement("ul");e.className="cld-labels";for(var t=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],a=0;a<t.length;a++){var n=document.createElement("li");n.className+="cld-label",n.innerHTML=t[a],e.appendChild(n)}r.appendChild(e)}function d(){function t(e){var t=document.createElement("p");return t.className+="cld-number",t.innerHTML+=e,t}var a=document.createElement("ul");a.className+="cld-days";for(var n=0;n<e.Selected.FirstDay;n++){var l=document.createElement("li");l.className+="cld-day prevMonth";for(var i=n%7,d=0;d<e.Options.DisabledDays.length;d++)i==e.Options.DisabledDays[d]&&(l.className+=" disableDay");var o=t(e.Prev.Days-e.Selected.FirstDay+(n+1));l.appendChild(o),a.appendChild(l)}for(var n=0;n<e.Selected.Days;n++){var l=document.createElement("li");l.className+="cld-day currMonth";for(var i=(n+e.Selected.FirstDay)%7,d=0;d<e.Options.DisabledDays.length;d++)i==e.Options.DisabledDays[d]&&(l.className+=" disableDay");for(var o=t(n+1),c=0;c<e.Model.length;c++){var s=e.Model[c].Date,p=new Date(e.Selected.Year,e.Selected.Month,n+1);if(s.getTime()==p.getTime()){o.className+=" eventday";var h=document.createElement("span");if(h.className+="cld-title","function"==typeof e.Model[c].Link||e.Options.EventClick){var v=document.createElement("a");if(v.setAttribute("href","#"),v.innerHTML+=e.Model[c].Title,e.Options.EventClick){var m=e.Model[c].Link;"string"!=typeof e.Model[c].Link?(v.addEventListener("click",e.Options.EventClick.bind.apply(e.Options.EventClick,[null].concat(m))),e.Options.EventTargetWholeDay&&(l.className+=" clickable",l.addEventListener("click",e.Options.EventClick.bind.apply(e.Options.EventClick,[null].concat(m))))):(v.addEventListener("click",e.Options.EventClick.bind(null,m)),e.Options.EventTargetWholeDay&&(l.className+=" clickable",l.addEventListener("click",e.Options.EventClick.bind(null,m))))}else v.addEventListener("click",e.Model[c].Link),e.Options.EventTargetWholeDay&&(l.className+=" clickable",l.addEventListener("click",e.Model[c].Link));h.appendChild(v)}else h.innerHTML+='<a href="'+e.Model[c].Link+'">'+e.Model[c].Title+"</a>";o.appendChild(h)}}l.appendChild(o),n+1==e.Today.getDate()&&e.Selected.Month==e.Today.Month&&e.Selected.Year==e.Today.Year&&(l.className+=" today"),a.appendChild(l)}var y=13;a.children.length>35?y=6:a.children.length<29&&(y=20);for(var n=0;n<y-e.Selected.LastDay;n++){var l=document.createElement("li");l.className+="cld-day nextMonth";for(var i=(n+e.Selected.LastDay+1)%7,d=0;d<e.Options.DisabledDays.length;d++)i==e.Options.DisabledDays[d]&&(l.className+=" disableDay");var o=t(n+1);l.appendChild(o),a.appendChild(l)}r.appendChild(a)}if("undefined"!=typeof a){var o=new Date(e.Selected.Year,e.Selected.Month+a,1);e=new Calendar(e.Model,e.Options,o),t.innerHTML=""}else for(var c in e.Options)"function"!=typeof e.Options[c]&&"object"!=typeof e.Options[c]&&e.Options[c]?t.className+=" "+c+"-"+e.Options[c]:0;var s=["January","February","March","April","May","June","July","August","September","October","November","December"],r=document.createElement("div");r.className+="cld-main",e.Options.Color&&(r.innerHTML+="<style>.cld-main{color:"+e.Options.Color+";}</style>"),e.Options.LinkColor&&(r.innerHTML+="<style>.cld-title a{color:"+e.Options.LinkColor+";}</style>"),t.appendChild(r),e.Options.NavShow&&e.Options.NavVertical&&n(),e.Options.DateTimeShow&&l(),i(),d()}function caleandar(e,t,a){var n=new Calendar(t,a);createCalendar(n,e)}var Calendar=function(e,t,a){this.Options={Color:"",LinkColor:"",NavShow:!0,NavVertical:!1,NavLocation:"",DateTimeShow:!0,DateTimeFormat:"mmm, yyyy",DatetimeLocation:"",EventClick:"",EventTargetWholeDay:!1,DisabledDays:[],ModelChange:e};for(var n in t)this.Options[n]="string"==typeof t[n]?t[n].toLowerCase():t[n];e?this.Model=e:this.Model={},this.Today=new Date,this.Selected=this.Today,this.Today.Month=this.Today.getMonth(),this.Today.Year=this.Today.getFullYear(),a&&(this.Selected=a),this.Selected.Month=this.Selected.getMonth(),this.Selected.Year=this.Selected.getFullYear(),this.Selected.Days=new Date(this.Selected.Year,this.Selected.Month+1,0).getDate(),this.Selected.FirstDay=new Date(this.Selected.Year,this.Selected.Month,1).getDay(),this.Selected.LastDay=new Date(this.Selected.Year,this.Selected.Month+1,0).getDay(),this.Prev=new Date(this.Selected.Year,this.Selected.Month-1,1),0==this.Selected.Month&&(this.Prev=new Date(this.Selected.Year-1,11,1)),this.Prev.Days=new Date(this.Prev.getFullYear(),this.Prev.getMonth()+1,0).getDate()};
 /*
   Author: Jack Ducasse;
   Version: 0.1.0;
   
 */
+
 var Calendar = function(model, options, date){
   // Default Values
   this.Options = {
@@ -204,19 +204,131 @@ function createCalendar(calendar, element, adjuster){
         }
       }
       var number = DayNumber(i+1);
+     
       // Check Date against Event Dates
+      
       for(var n = 0; n < calendar.Model.length; n++){
         var evDate = calendar.Model[n].Date;
         var toDate = new Date(calendar.Selected.Year, calendar.Selected.Month, (i+1));
+        
         if(evDate.getTime() == toDate.getTime()){
+         
           number.className += " eventday";
+          var eventClass=days.className;
+          
+          if(document.addEventListener){
+            number.addEventListener('click',function(e){
+              
+              var t=this.innerHTML
+              var edate=t.split(/<(.+)/)[0];
+              var eventsToday=[];
+              for(var n = 0; n < calendar.Model.length; n++){
+                
+                var evDate = calendar.Model[n].Date;
+                var monthyear=document.getElementsByClassName('today')[0].innerHTML
+                var getMonth=convertMonthNum(evDate.getMonth());
+                var emonth=monthyear.split(/,(.+)/)[0];
+                if(evDate.getDate()==edate && getMonth==emonth){
+                  
+                  var event_day=document.getElementById("specialDay");
+                  var divwidth=event_day.offsetWidth;
+                  var divheight=document.getElementsByClassName("cld-main")[0].offsetHeight;
+                  
+                  event_day.style.display="block";
+                  //event_day.style.height="block";
+                  while (event_day.firstChild) {
+                    event_day.removeChild(event_day.lastChild);
+                  }
+                  event_day.innerHTML="";
+
+                  var event_planned=edate +" "+monthyear;
+              
+                  var header=document.createElement("button")
+                  header.innerHTML+=event_planned;
+                  header.style.backgroundColor="lavender";
+                  header.style.color="black";
+                  header.style.border="1px";
+                  header.style.borderColor="black";
+                  header.style.border="0";
+                  header.style.width=divwidth-32+"px";
+                  header.style.fontFamily="Merienda One";
+                  header.style.fontsize="16pt";
+                  header.style.margin="0 auto";
+                  header.style.textAlign="center";
+                  
+                  event_day.appendChild(header);
+
+                  var closeout=document.createElement("button");
+                  closeout.innerHTML += 'x';
+                  closeout.style.float="right";
+                  closeout.style.height="25px";
+                  closeout.style.width="25px";
+                  closeout.style.color="black";
+                  closeout.style.border="1px";
+                  closeout.style.borderColor="black";
+                  closeout.style.fontFamily="'Poppins', sans-serif"
+                  closeout.style.backgroundColor="thistle";
+                  closeout.style.borderRadius="50%";
+                  closeout.style.textAlign="center";
+                  closeout.style.top="0";
+                  closeout.style.right="0";
+                  event_day.appendChild(closeout);
+                  if(document.addEventListener){
+          
+                    closeout.addEventListener('click', function(e) {
+                      e.preventDefault();
+                      alert("hey")
+                      this.parentNode.style.display = 'none';
+                      
+                      }, false);
+                    }
+                  event_day.innerHTML+= "<br />"+"Events Scheduled: ";
+                  if (eventsToday.indexOf(calendar.Model[n].Title) > -1){
+                    //break;
+                  }
+                  else{
+                    eventsToday.push(calendar.Model[n].Title);
+                  }
+                  
+                  for(var i=0;i<eventsToday.length;i++){
+                    
+                    var b=document.createElement("button")
+                    b.innerHTML+="☆ "+eventsToday[i];
+
+                    b.style.backgroundColor="lavender";
+                    b.style.color="black";
+                    b.style.border="1px";
+                    b.style.borderColor="black";
+                    b.style.border="0";
+                    b.style.width="100%";
+                    b.style.fontFamily="'Poppins', sans-serif";
+                    b.style.fontsize="14pt";
+                    b.style.textAlign="center";
+                    event_day.appendChild(b)
+                  }
+                  
+                  
+                   
+
+                  
+                
+                 
+                }
+              }
+              
+        },false);
+      }
+        
           var title = document.createElement('span');
+          
           title.className += "cld-title";
+          
           if(typeof calendar.Model[n].Link == 'function' || calendar.Options.EventClick){
             var a = document.createElement('a');
             a.setAttribute('href', '#');
             a.innerHTML += calendar.Model[n].Title;
             if(calendar.Options.EventClick){
+              
               var z = calendar.Model[n].Link;
               if(typeof calendar.Model[n].Link != 'string'){
                   a.addEventListener('click', calendar.Options.EventClick.bind.apply(calendar.Options.EventClick, [null].concat(z)) );
@@ -241,9 +353,12 @@ function createCalendar(calendar, element, adjuster){
             title.appendChild(a);
           }else{
             title.innerHTML += '<a href="' + calendar.Model[n].Link + '">' + calendar.Model[n].Title + '</a>';
+            
           }
           number.appendChild(title);
+          
         }
+        
       }
       day.appendChild(number);
       // If Today..
@@ -251,6 +366,7 @@ function createCalendar(calendar, element, adjuster){
         day.className += " today";
       }
       days.appendChild(day);
+      
     }
     // Next Month's Days
     // Always same amount of days in calander
@@ -275,6 +391,7 @@ function createCalendar(calendar, element, adjuster){
       days.appendChild(day);
     }
     mainSection.appendChild(days);
+    
   }
   if(calendar.Options.Color){
     mainSection.innerHTML += '<style>.cld-main{color:' + calendar.Options.Color + ';}</style>';
@@ -293,18 +410,64 @@ function createCalendar(calendar, element, adjuster){
   AddLabels();
   AddDays();
 }
+function convertMonthNum(num){
+  var monthStr;
+  if(num==0){
+    monthStr="January";
+  }
+  if(num==1){
+    monthStr="February";
+  }
+  if(num==2){
+    monthStr="March";
+  }
+  if(num==3){
+    monthStr="April";
+  }
+  if(num==4){
+    monthStr="May";
+  }
+  if(num==5){
+    monthStr="June";
+  }
+  if(num==6){
+    monthStr="July";
+  }
+  if(num==7){
+    monthStr="August";
+  }
+  if(num==9){
+    monthStr="September";
+  }
+  if(num==9){
+    monthStr="October";
+  }
+  if(num==10){
+    monthStr="November";
+  }
+  if(num==11){
+    monthStr="December";
+  }
+  return monthStr;
 
-function caleandar(el, data, settings){
+}
+function calendar(el, data, settings){
   var obj = new Calendar(data, settings);
   createCalendar(obj, el);
 }
 var events = [
   {'Date': new Date(2020, 2, 7), 'Title': 'Study at 3:25pm.'},
   {'Date': new Date(2020, 2, 18), 'Title': 'Test at 4pm', 'Link': 'https://google.com'},
-  {'Date': new Date(2020, 2, 27), 'Title': 'Review Session'},
-  {'Date': new Date(2020, 3, 27), 'Title': 'Review Session'},
+  {'Date': new Date(2020, 2, 27), 'Title': 'Review Session1','Link': 'https://google.com'},
+  {'Date': new Date(2020, 3, 27), 'Title': 'Review Session2','Link': 'https://google.com'},
+  {'Date': new Date(2020, 3, 29), 'Title': 'Review Session3','Link': 'https://google.com'},
+  {'Date': new Date(2020, 3, 29), 'Title': 'Test at 5pm','Link': 'https://google.com'}
 ];
 var settings = {};
-var element = document.getElementById('caleandar');
+var element = document.getElementById('calendar');
 
-caleandar(element, events, settings);
+calendar(element, events, settings);
+// document.getElementById('closeButton').addEventListener('click', function(e) {
+//   e.preventDefault();
+//   this.parentNode.style.display = 'none';
+// }, false);
