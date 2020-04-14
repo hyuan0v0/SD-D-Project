@@ -1,3 +1,19 @@
+#calendar{
+    width:50%;
+    display:inline-block;
+}
+#specialDay{
+
+    width: 20%;
+    height:300px;
+    display: none;
+    border-color: rgb(78, 78, 185);
+    border-style: double;
+    float: right;
+    background-color: rgb(247, 247, 247);
+
+}
+
 .cld-main{
 width: 500px;
 }
@@ -208,9 +224,11 @@ padding: 10px;
     border-radius: 5px;
     font-size: 12px;
 }
+/****************************************************/
 .cld-number:hover .cld-title{
-    display: block;
+    display: none;
 }
+/******************************************************/
 .cld-title::before{
     content: '';
     position: absolute;
