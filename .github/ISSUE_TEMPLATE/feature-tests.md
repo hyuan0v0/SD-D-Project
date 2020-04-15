@@ -15,7 +15,7 @@ assignees: ''
 3. System prompts you for an email address and a password
 4. Enter your information
 5. Press sign up
-6. After pressing sign up you will be redirected to the home page
+6. After pressing sign up you will be redirected a page telling you you're now registered and prompting you to log in
 a. Note: you will not be logged in automatically
 ---
 **Test 2: Login**
