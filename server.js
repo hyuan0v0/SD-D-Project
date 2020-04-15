@@ -74,6 +74,11 @@ app.post("/makegroup", requireLogin, (req, res, next) => {
         }
     });
 });
+
+app.get("/group",function (req, res) {
+	
+	
+});
 //set up readline variable
 var rl = readline.createInterface({
     input: process.stdin,
@@ -131,7 +136,7 @@ router.get("/about", function (req, res) {
 });
 
 router.get("/contact", function (req, res) {
-    res.render("contact.html");
+    res.render("contact");
 });
 
 router.get("/dashboard", requireLogin, function (req, res,next) {
@@ -252,5 +257,14 @@ router.get("/creategroup",function(req,res){
       console.log(item);
 	  res.render("creategroup",{item: item});
     })
+});
+
+router.get("/findgroup",function(req,res){
+	
+	Group.find({},function(err, item) {
+      console.log(item);
+	  res.render("findgroup",{item: item});
+    })
+	
 });
 
