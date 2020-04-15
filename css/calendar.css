@@ -2,18 +2,66 @@
     width:50%;
     display:inline-block;
 }
+#rightEvents{
+    width: 50%;
+    display: block;
+    border-color: rgb(78, 78, 185);
+    border-style: double;
+    float: right;
+    background-color: rgb(247, 247, 247);
+    margin-top: 0pt;  
+}
 #specialDay{
-
-    width: 20%;
-    height:300px;
+    width: 100%;
     display: none;
     border-color: rgb(78, 78, 185);
     border-style: double;
     float: right;
     background-color: rgb(247, 247, 247);
+    margin-top: 0pt;
+}
+#todayGoals{
+    width: 100%;
+    display: block;
+    border-color: rgb(78, 78, 185);
+    border-style: double;
+    float: right;
+    background-color: lavender;
+    font-family: Merienda One;
+    margin-bottom: 0pt;
 
 }
-
+.custom-cm{
+    background-color: lightgrey;
+    border:1px solid black;
+    box-shadow:1px 1px 5px rgba(0,0,0,1);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    padding:3px;
+    width:100px;
+    display:none;
+    position: fixed;
+    z-index: 999999;
+    margin-top:0px;
+  
+  }
+  .custom-cm__item{
+    cursor: pointer;
+    padding: 3px 3px;
+    font-family: 'Poppins', sans-serif;
+  }
+  .custom-cm__item:hover{
+    background-color: rgb(175, 159, 159);
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    }
+    ul li {
+    display: block;
+    position: relative;
+    }
 .cld-main{
 width: 500px;
 }
