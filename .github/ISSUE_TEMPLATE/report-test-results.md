@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-**What test did you use (# and name):**
+**What test did you use (# and name) [test list is in feature-tests.md]:**
 
 **Did it pass?:**
 
