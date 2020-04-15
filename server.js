@@ -15,7 +15,6 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const User = require("./user.js");
 const Schema = mongoose.Schema;
-<<<<<<< Updated upstream
 const requireLogin = require("./middleware/requireLogin.js");
 var bodyParser = require('body-parser');
 
@@ -28,11 +27,9 @@ var groupSchema = new mongoose.Schema({
 var Group = mongoose.model("Group", groupSchema);
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-=======
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
->>>>>>> Stashed changes
 app.use(express.urlencoded({
     extended: true
 }));
@@ -104,7 +101,7 @@ router.use(function (req, res, next) {
 });
 
 router.get("/", function (req, res) {
-    res.sendFile(path + "index.html");
+    res.render("index.html");
 
 });
 router.get("/cal", function (req, res) {
@@ -130,11 +127,11 @@ router.get("/signupbackground", function (req, res) {
 });
 
 router.get("/about", function (req, res) {
-    res.sendFile(path + "about.html");
+    res.render("about");
 });
 
 router.get("/contact", function (req, res) {
-    res.sendFile(path + "contact.html");
+    res.render("contact.html");
 });
 
 router.get("/dashboard", requireLogin, function (req, res,next) {
@@ -144,7 +141,7 @@ router.get("/dashboard", requireLogin, function (req, res,next) {
 });
 
 router.get("/login", function (req, res) {
-    res.sendFile(path + "login.html");
+    res.render("login.html");
 });
 
 router.get("/logout", function(req,res) {
@@ -155,18 +152,15 @@ router.get("/logout", function(req,res) {
 })
 
 router.get("/signup", function (req, res) {
-    res.sendFile(path + "signup.html");
+    res.render("signup");
 });
 router.get("/calendar", function (req, res) {
-    res.sendFile(path + "calendar.html");
+    res.render("calendar");
 });
 router.get("/signup_success", function (req, res) {
-    res.sendFile(path + "signup_success.html");
+    res.render("signup_success");
 })
 
-router.get("/creategroup",function(req,res){
-  res.sendFile(path + "creategroup.html");
-});
 
 router.get("/getClass",function(req,res){
   console.log("Creating group");
@@ -253,7 +247,7 @@ router.post("/class",(req,res) => {
   });
 });
 
-router.get("/class",function(req,res){
+router.get("/creategroup",function(req,res){
   Class.find({},function(err, item) {
       console.log(item);
 	  res.render("creategroup",{item: item});
