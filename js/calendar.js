@@ -308,13 +308,6 @@ function createCalendar(calendar, element, adjuster){
                     b.style.textAlign="center";
                     event_day.appendChild(b)
                   }
-                  
-                  
-                   
-
-                  
-                
-                 
                 }
               }
               
@@ -366,6 +359,151 @@ function createCalendar(calendar, element, adjuster){
       // If Today..
       if((i+1) == calendar.Today.getDate() && calendar.Selected.Month == calendar.Today.Month && calendar.Selected.Year == calendar.Today.Year){
         day.className += " today";
+        var tGoals=document.getElementById("todayGoals");
+        var month=convertMonthNum(calendar.Today.Month)
+        tGoals.innerHTML="";
+        tGoals.innerHTML+="Goals for Today ~ "+calendar.Today.getDate()+" "+month+" "+calendar.Today.Year;
+        var closeout=document.createElement("button");
+        closeout.innerHTML += '+';
+        closeout.style.float="right";
+        closeout.style.height="25px";
+        closeout.style.width="25px";
+        closeout.style.color="black";
+        closeout.style.border="1px";
+        closeout.style.borderColor="black";
+        closeout.style.fontFamily="'Poppins', sans-serif"
+        closeout.style.backgroundColor="thistle";
+        closeout.style.borderRadius="50%";
+        closeout.style.textAlign="center";
+        closeout.style.top="0";
+        closeout.style.right="0";
+        tGoals.appendChild(closeout);
+        var clickedon="";
+        var b3=document.createElement("button")
+        document.addEventListener('click', function(e) {
+          if(e.target.innerText=='+'){
+            e.preventDefault();
+            var addGoal=document.createElement("textarea");
+            addGoal.style.width="100%";
+            addGoal.style.fontSize="14pt";
+            tGoals.appendChild(addGoal);
+            addGoal.addEventListener('keypress', function (e) {
+              if (e.key === 'Enter') {
+                // code for enter
+                var txt=addGoal.value.trim();
+                if(txt!=""){
+                  
+                  todayGoalsList.push(txt);
+                  
+                  b3.style.backgroundColor="#C3CDE6";
+                  b3.style.color="black";
+                  b3.style.border="1px";
+                  b3.style.borderColor="black";
+                  b3.style.border="0";
+                  b3.style.width="100%";
+                  b3.style.fontFamily="'Poppins', sans-serif";
+                  b3.style.fontsize="14pt";
+                  b3.style.textAlign="center";
+                  b3.innerHTML="☆ "+txt;
+                  tGoals.appendChild(b3)
+                  addGoal.style.display="none";
+
+                  if (document.addEventListener) { // IE >= 9; other browsers
+                  b3.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                      showContextMenu();
+                      positionMenu(e);
+                      clickedon=e.target.innerText;
+                      console.log(clickedon)
+
+                  }, false);
+                  document.addEventListener("click",function(e){
+                  showContextMenu(false);
+                  });
+                  document.addEventListener("scroll",function(e){
+                  showContextMenu(false);
+                  });
+                  }
+                  else { // IE < 9
+                      document.attachEvent('oncontextmenu', function() {
+                        alert("You've tried to open context menu");
+                        window.event.returnValue = false;
+                      });
+                  }
+                 
+
+
+                    }
+                else{
+                  alert("Please enter a Goal")
+                }
+              }
+          });
+            //break;
+          }
+        });
+        tGoals.innerHTML+="<br />";
+        
+        for(var t=0;t<todayGoalsList.length;t++){
+         // createGoalsButtons(todayGoalsList,t)
+          var b2=document.createElement("button")
+          b2.style.backgroundColor="#C3CDE6";
+          b2.style.color="black";
+          b2.style.border="1px";
+          b2.style.borderColor="black";
+          b2.style.border="0";
+          b2.style.width="100%";
+          b2.style.fontFamily="'Poppins', sans-serif";
+          b2.style.fontsize="14pt";
+          b2.style.textAlign="center";
+          b2.innerHTML="☆ "+todayGoalsList[t];
+          tGoals.appendChild(b2);
+          if (document.addEventListener) { // IE >= 9; other browsers
+            b2.addEventListener('contextmenu', function(e) {
+               e.preventDefault();
+                showContextMenu();
+                positionMenu(e);
+                clickedon=e.target.innerText
+                console.log(clickedon)
+            }, false);
+            document.addEventListener("click",function(e){
+             showContextMenu(false);
+            });
+            document.addEventListener("scroll",function(e){
+             showContextMenu(false);
+            });
+         }
+         else { // IE < 9
+            document.attachEvent('oncontextmenu', function() {
+               alert("You've tried to open context menu");
+               window.event.returnValue = false;
+            });
+         }
+         
+
+        }
+        var delitem=document.getElementById("thisitem");
+        delitem.addEventListener('click', function(e) {
+         
+          var stripped=clickedon.split(/☆(.+)/)[1];
+          stripped=stripped.trim()
+          for(var i in todayGoalsList){
+            if(todayGoalsList[i]==stripped){
+              todayGoalsList.splice(i,1);
+                break;
+            }
+         }
+         if(b2.innerHTML==clickedon){
+         b2.parentNode.removeChild(b2)
+         }
+         if(b3.innerHTML==clickedon){
+          b3.parentNode.removeChild(b3)
+          }
+         
+         
+          }, false);
+        
+        
       }
       days.appendChild(day);
       
@@ -453,6 +591,7 @@ function convertMonthNum(num){
   return monthStr;
 
 }
+
 function calendar(el, data, settings){
   var obj = new Calendar(data, settings);
   createCalendar(obj, el);
@@ -465,11 +604,72 @@ var events = [
   {'Date': new Date(2020, 3, 29), 'Title': 'Review Session3','Link': 'https://google.com'},
   {'Date': new Date(2020, 3, 29), 'Title': 'Test at 5pm','Link': 'https://google.com'}
 ];
+var todayGoalsList=["Finish DiffEq Problem Set","Submit Psych Essay","Go to the Gym","Start Algo P-set"];
 var settings = {};
 var element = document.getElementById('calendar');
 
 calendar(element, events, settings);
-// document.getElementById('closeButton').addEventListener('click', function(e) {
-//   e.preventDefault();
-//   this.parentNode.style.display = 'none';
-// }, false);
+
+var cm=document.querySelector(".custom-cm");
+function showContextMenu(show=true){
+    cm.style.display=show ?'block' :"none";
+}
+var clickCoords;
+var clickCoordsX;
+var clickCoordsY;
+var menuState = 0;
+var menuWidth;
+var menuHeight;
+var menuPosition;
+var menuPositionX;
+var menuPositionY;
+
+var windowWidth;
+var windowHeight;
+function getPosition(e) {
+    var posx = 0;
+    var posy = 0;
+
+    if (!e) var e = window.event;
+
+    if (e.pageX || e.pageY) {
+    posx = e.clientX;
+    posy = e.clientY;
+    } else if (e.clientX || e.clientY) {
+    posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+    posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    }
+
+    return {
+    x: posx,
+    y: posy
+    }
+}
+function positionMenu(e) {
+    
+    clickCoords = getPosition(e);
+    clickCoordsX = clickCoords.x;
+
+    clickCoordsY = clickCoords.y;
+
+
+    menuWidth = cm.offsetWidth + 4;
+    menuHeight = cm.offsetHeight + 4;
+
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+
+    if ( (windowWidth - clickCoordsX) < menuWidth ) {
+        cm.style.left = windowWidth - menuWidth + "px";
+    } else {
+        cm.style.left = clickCoordsX + "px";
+    }
+
+    if ( (windowHeight - clickCoordsY) < menuHeight ) {
+        cm.style.top = windowHeight - menuHeight + "px";
+    } else {
+        cm.style.top = clickCoordsY + "px";
+
+    }
+
+    }
