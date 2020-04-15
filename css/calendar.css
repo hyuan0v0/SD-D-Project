@@ -3,7 +3,7 @@
     display:inline-block;
 }
 #rightEvents{
-    width: 50%;
+    width: 40%;
     display: block;
     border-color: rgb(78, 78, 185);
     border-style: double;
@@ -63,7 +63,7 @@
     position: relative;
     }
 .cld-main{
-width: 500px;
+width: 100%;
 }
 .cld-main a{
 color: #333;
@@ -188,7 +188,7 @@ font-family: 'Roboto Condensed', sans-serif;
 color: #333;
 }
 .cld-main{
-width: 400px;
+width: 100%;
 }
 .cld-main a{
 color: #0080FF;
