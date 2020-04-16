@@ -121,8 +121,28 @@ router.use(function (req, res, next) {
 });
 
 router.get("/", function (req, res) {
-    res.render("index.html");
-
+    if (req.session.user && req.cookies.user_sid){
+        //TODO: replace this with rendering stuff instead
+        let html = fs.readFileSync(path+"index.html","utf8");
+        html = html.replace(`<ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" href="/login"><span>Login</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup"><span>Sign Up</span></a>
+        </li>
+      </ul>`,`<ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard"><span>My Dashboard</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout"><span>Log out</span></a>
+        </li>
+      </ul>`);
+        res.send(html);
+    } else {
+        res.render("index.html");
+    }
 });
 
 router.get("/cal", function (req, res) {
@@ -229,7 +249,9 @@ router.post("/login", (req, res) => {
 
     User.authenticate(User, req.body.inputEmail, req.body.password, (err, user) => {
         if (err) {
-            return err;
+            html = fs.readFileSync(path+"login.html","utf8");
+            html = html.replace(`<label for="ERROR"></label>`,`<label for="ERROR">${err}</label>`)
+            res.send(html);
         } else {
             req.session.user = user._id;
             req.session.firstname = user.firstname;
