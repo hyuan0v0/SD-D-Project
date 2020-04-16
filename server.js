@@ -146,6 +146,9 @@ router.get("/tutorial", function (req, res) {
 router.get("/addgoals", function (req, res) {
     res.sendFile(path2 + "addgoals.png");
 });
+router.get("/deletegoal", function (req, res) {
+    res.sendFile(path2 + "deletegoal.png");
+});
 router.get("/scheduled", function (req, res) {
     res.sendFile(path2 + "scheduledevents.png");
 });
