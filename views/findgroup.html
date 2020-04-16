@@ -72,12 +72,23 @@
           <input type="Submit" name="Submit New Group">
         </li>
       </ul>
+	  <h1>Day</h1>
+	  <p id = "day"></p>
+	  <h1>Meeting Time</h1>
+	  <p id = "time"></p>
     </form>
+	
   </div>
   <script>
 	window.x = '<%= item%>';
+	window.y = '<%= day%>';
+	window.z = '<%= time%>';
 	var names = window.x.split(",");
+	var days = window.y.split(",");
+	var times = window.z.split(",");
 	console.log(names);
+	console.log(days);
+	console.log(times);
 	var select = document.getElementById("groupselection");
 	for(var i =0;i<names.length;i++){
 		var opt = names[i];
@@ -88,7 +99,12 @@
 	}
 
 	$('.selectpicker').change(function (e) {
-		alert(document.getElementById("groupselection").selectedIndex);
+		var index = document.getElementById("groupselection").selectedIndex;
+		index = index -1;
+		if(index >= 0){
+			document.getElementById("day").innerHTML = days[index];
+			document.getElementById("time").innerHTML = times[index];
+		}
 	});
 </script>
 
