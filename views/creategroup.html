@@ -54,15 +54,14 @@
   </nav>
   <br>
 </div>
-<p><%= item %></p>
   <!-- Form options are placeholders until code for scraping classes from a pdf into the database is done-->
   <div class="container p-0">
-    <h1>Create Group</h1>
+    <h1>Create Group</h
     <br>
     <form id="tableForm" action="/makegroup" method="post">
       <ul style="list-style-type:none">
         <li>
-          <select class="selectpicker" data-style="btn-info" name="classpicker">
+          <select id = "classselection" class="selectpicker" data-style="btn-info" name="classpicker">
             <optgroup label="Select Class">
               <option name="" value="0">Select Class</option>
               <option name="Computer Science 1" value="cs1">Computer Science</option>
@@ -114,6 +113,19 @@
       </ul>
     </form>
   </div>
+  <script>
+	window.x = '<%= item%>';
+	var names = window.x.split(",");
+	console.log(names);
+	var select = document.getElementById("classselection");
+	for(var i =0;i<names.length;i++){
+		var opt = names[i];
+		var el = document.createElement("Option");
+		el.textContent = opt;
+		el.value = opt;
+		select.appendChild(el);
+	}
+</script>
 
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -254,8 +254,17 @@ router.post("/class",(req,res) => {
 
 router.get("/creategroup",function(req,res){
   Class.find({},function(err, item) {
-      console.log(item);
-	  res.render("creategroup",{item: item});
+      console.log(item[0]);
+	  console.log(item.length);
+	  console.log(item[0].classname);
+	  var x = 0;
+	  let name = [];
+	  
+	  while(x<item.length){
+		 name.push(item[x].classname);
+		 x+=1;
+	  }
+	  res.render("creategroup",{item: name});
     })
 });
 
