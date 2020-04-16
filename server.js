@@ -27,9 +27,13 @@ var groupSchema = new mongoose.Schema({
 var Group = mongoose.model("Group", groupSchema);
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.urlencoded({
     extended: true
 }));
+
 app.use(cookieParser());
 app.use(session({
     key: "user_sid",
@@ -69,6 +73,26 @@ app.post("/makegroup", requireLogin, (req, res, next) => {
             console.log(groupData);
         }
     });
+});
+
+app.post("/addgroup", requireLogin, (req, res, next) => {
+	var userid = req.session.user;
+	
+	User.update({"_id":userid},{$set:{"groups": req.body.classpicker}},function(err, item) {
+		
+    })
+	User.find({"_id":userid},function(err, item) {
+      console.log(item)
+    })
+	res.redirect("/");
+
+
+  
+});
+
+app.get("/group",function (req, res) {
+	
+	
 });
 //set up readline variable
 var rl = readline.createInterface({
@@ -117,7 +141,7 @@ router.get("/", function (req, res) {
       </ul>`);
         res.send(html);
     } else {
-        res.sendFile(path + "index.html");
+        res.render("index.html");
     }
 });
 
@@ -144,11 +168,11 @@ router.get("/signupbackground", function (req, res) {
 });
 
 router.get("/about", function (req, res) {
-    res.sendFile(path + "about.html");
+    res.render("about");
 });
 
 router.get("/contact", function (req, res) {
-    res.sendFile(path + "contact.html");
+    res.render("contact");
 });
 
 router.get("/dashboard", requireLogin, function (req, res,next) {
@@ -175,7 +199,7 @@ router.get("/scheduled", function (req, res) {
 });
 
 router.get("/login", function (req, res) {
-    res.sendFile(path + "login.html");
+    res.render("login.html");
 });
 
 router.get("/logincss", function (req, res) {
@@ -190,7 +214,7 @@ router.get("/logout", function(req,res) {
 })
 
 router.get("/signup", function (req, res) {
-    res.sendFile(path + "signup.html");
+    res.render("signup");
 });
 
 router.get("/signupcss", function (req, res) {
@@ -198,15 +222,12 @@ router.get("/signupcss", function (req, res) {
 });
 
 router.get("/calendar", function (req, res) {
-    res.sendFile(path + "calendar.html");
+    res.render("calendar");
 });
 router.get("/signup_success", function (req, res) {
-    res.sendFile(path + "signup_success.html");
+    res.render("signup_success");
 })
 
-router.get("/creategroup",function(req,res){
-  res.sendFile(path + "creategroup.html");
-});
 
 router.get("/getClass",function(req,res){
   console.log("Creating group");
@@ -279,37 +300,60 @@ var ClassSchema = new Schema({
 
 var Class = mongoose.model("Class", ClassSchema);
 
-router.post("/class", (req, res) => {
-    console.log(req.body);
-    var userData = {
-        classname: req.body.classname,
-        crn: req.body.crn,
-    }
-
+router.post("/class",(req,res) => {
+  console.log(req.body);
+  var userData = {
+    classname: req.body.classname,
+    crn: req.body.crn,
     
-    User.init().then(() => {
-        User.create(userData, (err, user) => {
-            if (err) {
-                if (err.code === 11000) {
-                    return res.status(400).json({
-                        msg: "User already exists"
-                    })
-                }
-                console.log(err);
-            } else {
-                console.log("sent:");
-                console.log(userData);
-                return res.redirect("signup_success");
-            }
-        });
-    });
+  }
+  Class.create(userData, (err,user) => {
+    if (err){
+      console.log(err);
+    } else {
+		return res.sendStatus(200)
+	}
+  });
 });
 
-
-
-router.get("/class", function (req, res) {
-    Class.find({}, function (err, item) {
-        console.log(item);
+router.get("/creategroup",function(req,res){
+  Class.find({},function(err, item) {
+      console.log(item[0]);
+	  console.log(item.length);
+	  console.log(item[0].classname);
+	  var x = 0;
+	  let name = [];
+	  
+	  while(x<item.length){
+		 name.push(item[x].classname);
+		 x+=1;
+	  }
+	  res.render("creategroup",{item: name});
     })
-    return res.sendStatus(200)
 });
+
+router.get("/findgroup",function(req,res){
+	
+	Group.find({},function(err, item) {
+      console.log(item); console.log(item.length);
+	  console.log(item[0].classname);
+	  var x = 0;
+	  let ids = []
+	  let name = [];
+	  let day = [];
+	  let time = [];
+	  
+	  
+	  while(x<item.length){
+		 ids.push(item[x].id);
+		 name.push(item[x].classname);
+		 day.push(item[x].meetingday);
+		 time.push(item[x].meetingtime);
+		 time
+		 x+=1;
+	  }
+	  res.render("findgroup",{item: name, day:day,time:time, ids:ids});
+    })
+	
+});
+
