@@ -140,6 +140,16 @@ router.get("/dashcss", function (req, res) {
     res.sendFile(path4 + "dashboard.css");
 });
 
+router.get("/tutorial", function (req, res) {
+    res.sendFile(path + "tutorial.html");
+});
+router.get("/addgoals", function (req, res) {
+    res.sendFile(path2 + "addgoals.png");
+});
+router.get("/scheduled", function (req, res) {
+    res.sendFile(path2 + "scheduledevents.png");
+});
+
 router.get("/login", function (req, res) {
     res.sendFile(path + "login.html");
 });
