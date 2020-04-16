@@ -75,6 +75,21 @@ app.post("/makegroup", requireLogin, (req, res, next) => {
     });
 });
 
+app.post("/addgroup", requireLogin, (req, res, next) => {
+	var userid = req.session.user;
+	
+	User.update({"_id":userid},{$set:{"groups": req.body.classpicker}},function(err, item) {
+		
+    })
+	User.find({"_id":userid},function(err, item) {
+      console.log(item)
+    })
+	res.redirect("/");
+
+
+  
+});
+
 app.get("/group",function (req, res) {
 	
 	
@@ -274,19 +289,21 @@ router.get("/findgroup",function(req,res){
       console.log(item); console.log(item.length);
 	  console.log(item[0].classname);
 	  var x = 0;
+	  let ids = []
 	  let name = [];
 	  let day = [];
 	  let time = [];
 	  
 	  
 	  while(x<item.length){
+		 ids.push(item[x].id);
 		 name.push(item[x].classname);
 		 day.push(item[x].meetingday);
 		 time.push(item[x].meetingtime);
 		 time
 		 x+=1;
 	  }
-	  res.render("findgroup",{item: name, day:day,time:time});
+	  res.render("findgroup",{item: name, day:day,time:time, ids:ids});
     })
 	
 });

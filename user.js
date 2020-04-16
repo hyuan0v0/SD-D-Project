@@ -20,7 +20,11 @@ var UserSchema = new Schema({
     password: {
         type:String,
         required: true
-    }
+    },
+	groups: {
+		type: String,
+		required: false,
+	}
 });
 
 UserSchema.pre("save", function(next) {
