@@ -98,15 +98,15 @@ router.use(function (req, res, next) {
 
 router.get("/", function (req, res) {
     res.sendFile(path + "index.html");
-
 });
+
 router.get("/cal", function (req, res) {
     res.sendFile(path3 + "calendar.js");
 });
 router.get("/calcss", function (req, res) {
     res.sendFile(path4 + "calendar.css");
-
 });
+
 router.get("/logoimg", function (req, res) { });
 
 router.get("/img", function (req, res) {
@@ -140,6 +140,10 @@ router.get("/login", function (req, res) {
     res.sendFile(path + "login.html");
 });
 
+router.get("/logincss", function (req, res) {
+    res.sendFile(path4 + "login.css");
+});
+
 router.get("/logout", function(req,res) {
     req.session.user = null;
     req.session.firstname = null;
@@ -150,6 +154,11 @@ router.get("/logout", function(req,res) {
 router.get("/signup", function (req, res) {
     res.sendFile(path + "signup.html");
 });
+
+router.get("/signupcss", function (req, res) {
+    res.sendFile(path4 + "signup.css");
+});
+
 router.get("/calendar", function (req, res) {
     res.sendFile(path + "calendar.html");
 });
