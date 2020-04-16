@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	
-	<title>User Page</title>
+	<title>Tutorial Page</title>
 
 	<!-- Bootstrap CSS CDN -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -20,12 +20,10 @@
 	<link href='http://fonts.googleapis.com/css?family=Merienda+One' rel='stylesheet' type='text/css'>
 
 	<!-- Custom styles for this page -->
-	<link rel="stylesheet" href="/calcss">
 	<link rel="stylesheet" href="/dashcss">
 </head>
 
 <body>
-	
 	<div class="wrapper">
 		<!-- Sidebar  -->
 		<nav id="sidebar">
@@ -37,7 +35,7 @@
 				<h3>Virtual Connections</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active">
+				<li>
 					<a href="/dashboard">Home</a>
 				</li>
 				<li>
@@ -55,13 +53,14 @@
 						<li><a href="#">Page 3</a></li>
 					</ul>
 				</li>
-				<li><a href="/tutorial">Tutorial</a></li>
+				<li class="active">
+					<a href="/tutorial">Tutorial</a>
+				</li>
 			</ul>
 
 			<ul class="list-unstyled CTAs">
 				<a class="btn btn-lg btn-primary btn-block" href="/logout" type="submit">Log Out</a>
 			</ul>
-
 		</nav>
 		
 		<!-- Page Content  -->
@@ -74,26 +73,59 @@
 					</button>
 				</div>
 			</nav>
+			<section>
+				<h1>Getting Started</h1>
+				<h2>Welcome to Virtual Connections!</h2>
+			</section>
+			<section>
+				<p>This guide will help you learn the basics of Virtual Connections.</p>
+				<br>
+				<br>
 
-			<h2>Welcome $USER</h2>
-
-			<p>Take a Look at your Schedule Below!</p>
-			<div id="calendar"></div>
-			<img src="https://cdn.clipart.email/d5938e5db866163f2a891ba267be4500_miss-mabels-school-for-girls-by-katie-cross-coffee-books-_435-424.png" alt="Simply Easy Learning"  height=80px style=bottom:0;right:0;>
-			<div id="rightEvents">
-				<div id="todayGoals">Today's Goals ~ </div>
-				<ul class="custom-cm">
-					<li class="custom-cm__item" id="thisitem">Delete</a> </li>
+				<h3>You'll learn how to use Virtual Connections to:</h3>
+				<ul>
+					<li>Keep track of your goals for today</li>
+					<li>Plan your day</li>
+					<li>Be part of a study grop</li>
 				</ul>
-				<div id="specialDay">A Closer Look! </div>
-			</div>
-		</div>
+				<br>
 
-		<div class="overlay"></div>
-	
+				<h3>Let's get started!</h3>
+				<br>
+				<br>
+				<br>
+
+				<h2>Keeping track of your goals</h2>
+				<h4>Adding new goals</h4>
+				<p>To add a new goal to the calendar, just click <mark>+</mark>, type in your goal, and press <kbd>Enter</kbd> .</p>
+				<img style="width: 50%;" src="/addgoals">
+				<br>
+				<br>
+				<h4>Deleteing a goal</h4>
+				<p>To delete a goal to the calendar, right click on the goal that you wish to delete. Then, click <mark>Delete</mark> .</p>
+				<img style="width: 50%;" src="/deletegoal">
+				<br>
+				<br>
+				<br>
+
+
+				<h2>Viewing calendar events</h2>
+				<p>When your at the calendar, click on a date indicated with a circle. The dates within a circle are days that you have a scheduled event.</p>
+				<p>Click the <mark>x</mark> to stop viewing the scheduled events of the date selected.</p>
+				<img style="width: 50%;" src="/scheduled">
+				<br>
+				<br>
+				<br>
+
+				<h2>Create a study group</h2>
+				<p>Try to make the group name understandable. Start with class name then the topic of study.</p>
+				<br>
+				<br>
+			</section>
+			
+		</div>
 	</div>
-	
-	<script type="text/javascript" src="/cal"></script>
+
 	<!-- jQuery CDN - Slim version (=without AJAX) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<!-- Popper.JS -->
@@ -122,6 +154,5 @@
 		});
 	});	
 	</script>
-
 </body>
 </html>
