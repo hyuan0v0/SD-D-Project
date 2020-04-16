@@ -271,8 +271,22 @@ router.get("/creategroup",function(req,res){
 router.get("/findgroup",function(req,res){
 	
 	Group.find({},function(err, item) {
-      console.log(item);
-	  res.render("findgroup",{item: item});
+      console.log(item); console.log(item.length);
+	  console.log(item[0].classname);
+	  var x = 0;
+	  let name = [];
+	  let day = [];
+	  let time = [];
+	  
+	  
+	  while(x<item.length){
+		 name.push(item[x].classname);
+		 day.push(item[x].meetingday);
+		 time.push(item[x].meetingtime);
+		 time
+		 x+=1;
+	  }
+	  res.render("findgroup",{item: name, day:day,time:time});
     })
 	
 });
