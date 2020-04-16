@@ -386,6 +386,8 @@ function createCalendar(calendar, element, adjuster){
             var addGoal=document.createElement("textarea");
             addGoal.style.width="100%";
             addGoal.style.fontSize="14pt";
+            addGoal.style.fontFamily="'Poppins', sans-serif";
+            addGoal.style.backgroundColor="lavender";
             tGoals.appendChild(addGoal);
             addGoal.addEventListener('keypress', function (e) {
               if (e.key === 'Enter') {
@@ -443,7 +445,7 @@ function createCalendar(calendar, element, adjuster){
           }
         });
         tGoals.innerHTML+="<br />";
-        
+        var buttonsNames=[]
         for(var t=0;t<todayGoalsList.length;t++){
          // createGoalsButtons(todayGoalsList,t)
           var b2=document.createElement("button")
@@ -457,6 +459,7 @@ function createCalendar(calendar, element, adjuster){
           b2.style.fontsize="14pt";
           b2.style.textAlign="center";
           b2.innerHTML="☆ "+todayGoalsList[t];
+          buttonsNames.push(b2.innerHTML)
           tGoals.appendChild(b2);
           if (document.addEventListener) { // IE >= 9; other browsers
             b2.addEventListener('contextmenu', function(e) {
@@ -493,6 +496,13 @@ function createCalendar(calendar, element, adjuster){
                 break;
             }
          }
+         for(var child=tGoals.firstChild; child!==null; child=child.nextSibling) {
+          console.log(child.innerHTML);
+          if(child.innerHTML==clickedon){
+            child.parentNode.removeChild(child)
+          }
+      }
+        
          if(b2.innerHTML==clickedon){
          b2.parentNode.removeChild(b2)
          }
