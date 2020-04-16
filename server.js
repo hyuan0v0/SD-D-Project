@@ -136,6 +136,10 @@ router.get("/dashboard", requireLogin, function (req, res,next) {
     res.send(html);
 });
 
+router.get("/dashcss", function (req, res) {
+    res.sendFile(path4 + "dashboard.css");
+});
+
 router.get("/login", function (req, res) {
     res.sendFile(path + "login.html");
 });
