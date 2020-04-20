@@ -15,8 +15,5 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
-	  no-console: 0;
-	  no-empty: 0;
-	  no-irregular-whitespace: 0;
   },
 };

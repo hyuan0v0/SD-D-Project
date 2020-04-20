@@ -20,7 +20,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
+	<!-- Routing -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -54,7 +54,7 @@
   </nav>
   <br>
 </div>
-  <!-- Form options are placeholders until code for scraping classes from a pdf into the database is done-->
+  <!-- Form options are generated from groups in the database-->
   <div class="container p-0">
     <h1>Find Group</h1>
     <br>
@@ -79,6 +79,7 @@
     </form>
 	
   </div>
+    <!-- Script that translates data from the database and generates the HTML elements-->
   <script>
 	window.x = '<%= item%>';
 	window.y = '<%= day%>';
