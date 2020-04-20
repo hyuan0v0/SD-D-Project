@@ -4,10 +4,10 @@ var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
-
 var path3 = __dirname + '/js/';
 var path4 = __dirname + '/css/';
 
+//various dependencies
 const fs = require("fs");
 const mongoose = require("mongoose");
 const readline = require("readline");
@@ -18,16 +18,20 @@ const Schema = mongoose.Schema;
 const requireLogin = require("./middleware/requireLogin.js");
 var bodyParser = require('body-parser');
 
-
+//connecting to the database
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+
+//setting up the rendering engine
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true});
+
+//middleware
 app.use(express.urlencoded({
     extended: true
 }));
 
 app.use(cookieParser());
+//middleware to set up sessions for logging in
 app.use(session({
     key: "user_sid",
     secret: "3214124312",
@@ -38,6 +42,7 @@ app.use(session({
     }
 }));
 
+//custom middleware to clear out the users log in status
 app.use((req, res, next) => {
     if (req.cookies.user_sid && !req.session.user) {
         res.clearCookie('user_sid');
@@ -45,8 +50,11 @@ app.use((req, res, next) => {
     next();
 });
 
+//more middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//creating the groups in the database
 app.post("/makegroup", requireLogin, (req, res, next) => {
   var userName = req.session.firstname;
   userName.concat(" ");
@@ -69,6 +77,7 @@ app.post("/makegroup", requireLogin, (req, res, next) => {
     });
 });
 
+//adding to a group
 app.post("/addgroup", requireLogin, (req, res, next) => {
 	var userid = req.session.user;
 	
@@ -85,7 +94,7 @@ app.post("/addgroup", requireLogin, (req, res, next) => {
 });
 
 app.get("/group",function (req, res) {
-	
+	//TODO: set up group page
 	
 });
 //set up readline variable
@@ -103,11 +112,13 @@ rl.on("line", (line) => {
     }
 })
 
+//connect to the database
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
     console.log("successfully connected");
 })
+
 
 //------------------------Start of Routing--------------------------------//
 
@@ -116,6 +127,7 @@ router.use(function (req, res, next) {
     next();
 });
 
+//loading the default page
 router.get("/", function (req, res) {
     if (req.session.user && req.cookies.user_sid){
         //TODO: replace this with rendering stuff instead
@@ -141,6 +153,8 @@ router.get("/", function (req, res) {
     }
 });
 
+
+//various pages scripts and images
 router.get("/cal", function (req, res) {
     res.sendFile(path3 + "calendar.js");
 });
@@ -171,12 +185,14 @@ router.get("/contact", function (req, res) {
     res.render("contact");
 });
 
+//the dashboard page, with custom middleware requirign the user
+//to be logged in
 router.get("/dashboard", requireLogin, function (req, res,next) {
     let html = fs.readFileSync(path+"dashboard.html","utf8");
     html = html.replace("$USER", req.session.firstname);
     res.send(html);
 });
-
+//more pages and css
 router.get("/dashcss", function (req, res) {
     res.sendFile(path4 + "dashboard.css");
 });
@@ -193,7 +209,9 @@ router.get("/deletegoal", function (req, res) {
 router.get("/scheduled", function (req, res) {
     res.sendFile(path2 + "scheduledevents.png");
 });
-
+router.get("/creategimg", function (req, res) {
+    res.sendFile(path2 + "createg.jpg");
+});
 router.get("/login", function (req, res) {
     res.render("login.html");
 });
@@ -201,7 +219,7 @@ router.get("/login", function (req, res) {
 router.get("/logincss", function (req, res) {
     res.sendFile(path4 + "login.css");
 });
-
+//logout page
 router.get("/logout", function(req,res) {
     req.session.user = null;
     req.session.firstname = null;
@@ -269,6 +287,7 @@ router.get("/findgroup",function(req,res){
 
 app.use("/", router);
 
+//404 if the any page is accessed that doesnt exist
 app.use("*", function (req, res) {
     res.sendFile(path + "404.html");
 });
@@ -277,6 +296,7 @@ app.listen(3000, function () {
     console.log("Live at Port 3000");
 });
 
+//login page
 router.post("/login", (req, res) => {
     console.log(req.body);
 
@@ -326,12 +346,15 @@ router.post("/signup", (req, res) => {
 });
 
 router.post("/class",(req,res) => {
-  console.log(req.body);
+
+  // Format data
   var userData = {
     classname: req.body.classname,
     crn: req.body.crn,
     
   }
+  
+  // Create object in database
   Class.create(userData, (err,user) => {
     if (err){
       console.log(err);
@@ -339,6 +362,58 @@ router.post("/class",(req,res) => {
         return res.sendStatus(200)
     }
   });
+});
+
+// Endpoint for pulling groups from the database
+router.get("/findgroup",function(req,res){
+	
+	// Database find command
+	Group.find({},function(err, item) {
+      console.log(item); console.log(item.length);
+	  console.log(item[0].classname);
+	  var x = 0;
+	  let ids = []
+	  let name = [];
+	  let day = [];
+	  let time = [];
+	  
+	  // Format the data in individual array for each value
+	  while(x<item.length){
+		 ids.push(item[x].id);
+		 name.push(item[x].classname);
+		 day.push(item[x].meetingday);
+		 time.push(item[x].meetingtime);
+		 time
+		 x+=1;
+	  }
+	  
+	  // Render the page and inject the data
+	  res.render("findgroup",{item: name, day:day,time:time, ids:ids});
+    })
+	
+
+});
+
+// Endpoint for rendering the creategroup page with groups from database
+router.get("/creategroup",function(req,res){
+	
+	// Database find command
+	Class.find({},function(err, item) {
+      console.log(item[0]);
+	  console.log(item.length);
+	  console.log(item[0].classname);
+	  var x = 0;
+	  let name = [];
+	  
+	  // Format data
+	  while(x<item.length){
+		 name.push(item[x].classname);
+		 x+=1;
+	  }
+	  
+	  // Render the page
+	  res.render("creategroup",{item: name});
+    })
 });
 
 //------------------------End of Routing--------------------------------//
@@ -350,9 +425,8 @@ router.post("/class",(req,res) => {
 var ClassSchema = new Schema({
     classname: String,
     crn: String,
-});
-var Class = mongoose.model("Class", ClassSchema);
 
+var Class = mongoose.model("Class", ClassSchema);
 
 var groupSchema = new mongoose.Schema({
  classname: String,
