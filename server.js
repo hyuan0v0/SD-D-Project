@@ -71,6 +71,7 @@ app.post("/makegroup", requireLogin, (req, res, next) => {
         } else {
             console.log("Adding group to the database:");
             console.log(groupData);
+            res.redirect("/dashboard");
         }
     });
 });
