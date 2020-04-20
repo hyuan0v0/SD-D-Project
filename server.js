@@ -18,13 +18,6 @@ const Schema = mongoose.Schema;
 const requireLogin = require("./middleware/requireLogin.js");
 var bodyParser = require('body-parser');
 
-var groupSchema = new mongoose.Schema({
- classname: String,
- meetingday: String,
- meetingtime: String,
- members: [String]
-});
-var Group = mongoose.model("Group", groupSchema);
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 app.engine('html', require('ejs').renderFile);
@@ -115,6 +108,8 @@ db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
     console.log("successfully connected");
 })
+
+//------------------------Start of Routing--------------------------------//
 
 router.use(function (req, res, next) {
     console.log("/" + req.method);
@@ -229,11 +224,48 @@ router.get("/signup_success", function (req, res) {
     res.render("signup_success");
 })
 
-
-router.get("/getClass",function(req,res){
-  console.log("Creating group");
-  res.sendFile(path + "creategroup.html");
+//renders the create groups page + pulls class list from database
+router.get("/creategroup",function(req,res){
+  Class.find({},function(err, item) {
+      console.log(item[0]);
+      console.log(item.length);
+      console.log(item[0].classname);
+      var x = 0;
+      let name = [];
+      
+      while(x<item.length){
+         name.push(item[x].classname);
+         x+=1;
+      }
+      res.render("creategroup",{item: name});
+    })
 });
+//renders find groups and pulls  groups from the database
+router.get("/findgroup",function(req,res){
+    
+    Group.find({},function(err, item) {
+      console.log(item); console.log(item.length);
+      console.log(item[0].classname);
+      var x = 0;
+      let ids = []
+      let name = [];
+      let day = [];
+      let time = [];
+      
+      
+      while(x<item.length){
+         ids.push(item[x].id);
+         name.push(item[x].classname);
+         day.push(item[x].meetingday);
+         time.push(item[x].meetingtime);
+         time
+         x+=1;
+      }
+      res.render("findgroup",{item: name, day:day,time:time, ids:ids});
+    })
+    
+});
+
 
 app.use("/", router);
 
@@ -293,14 +325,6 @@ router.post("/signup", (req, res) => {
     });
 });
 
-//Courselist Database Setup
-var ClassSchema = new Schema({
-    classname: String,
-    crn: String,
-});
-
-var Class = mongoose.model("Class", ClassSchema);
-
 router.post("/class",(req,res) => {
   console.log(req.body);
   var userData = {
@@ -312,49 +336,29 @@ router.post("/class",(req,res) => {
     if (err){
       console.log(err);
     } else {
-		return res.sendStatus(200)
-	}
+        return res.sendStatus(200)
+    }
   });
 });
 
-router.get("/creategroup",function(req,res){
-  Class.find({},function(err, item) {
-      console.log(item[0]);
-	  console.log(item.length);
-	  console.log(item[0].classname);
-	  var x = 0;
-	  let name = [];
-	  
-	  while(x<item.length){
-		 name.push(item[x].classname);
-		 x+=1;
-	  }
-	  res.render("creategroup",{item: name});
-    })
-});
+//------------------------End of Routing--------------------------------//
 
-router.get("/findgroup",function(req,res){
-	
-	Group.find({},function(err, item) {
-      console.log(item); console.log(item.length);
-	  console.log(item[0].classname);
-	  var x = 0;
-	  let ids = []
-	  let name = [];
-	  let day = [];
-	  let time = [];
-	  
-	  
-	  while(x<item.length){
-		 ids.push(item[x].id);
-		 name.push(item[x].classname);
-		 day.push(item[x].meetingday);
-		 time.push(item[x].meetingtime);
-		 time
-		 x+=1;
-	  }
-	  res.render("findgroup",{item: name, day:day,time:time, ids:ids});
-    })
-	
-});
 
+//------------------------Database setup--------------------------------//
+
+//Courselist Database Setup
+var ClassSchema = new Schema({
+    classname: String,
+    crn: String,
+});
+var Class = mongoose.model("Class", ClassSchema);
+
+
+var groupSchema = new mongoose.Schema({
+ classname: String,
+ meetingday: String,
+ meetingtime: String,
+ members: [String]
+});
+var Group = mongoose.model("Group", groupSchema);
+//------------------------End of Database Setup-------------------------//
