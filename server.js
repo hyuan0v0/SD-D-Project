@@ -4,7 +4,6 @@ var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
 var path2 = __dirname + '/img/';
-
 var path3 = __dirname + '/js/';
 var path4 = __dirname + '/css/';
 
@@ -303,13 +302,17 @@ var ClassSchema = new Schema({
 
 var Class = mongoose.model("Class", ClassSchema);
 
+// Endpoint to add classes to database
 router.post("/class",(req,res) => {
-  console.log(req.body);
+
+  // Format data
   var userData = {
     classname: req.body.classname,
     crn: req.body.crn,
     
   }
+  
+  // Create object in database
   Class.create(userData, (err,user) => {
     if (err){
       console.log(err);
@@ -319,24 +322,32 @@ router.post("/class",(req,res) => {
   });
 });
 
+// Endpoint for rendering the creategroup page with groups from database
 router.get("/creategroup",function(req,res){
-  Class.find({},function(err, item) {
+	
+	// Database find command
+	Class.find({},function(err, item) {
       console.log(item[0]);
 	  console.log(item.length);
 	  console.log(item[0].classname);
 	  var x = 0;
 	  let name = [];
 	  
+	  // Format data
 	  while(x<item.length){
 		 name.push(item[x].classname);
 		 x+=1;
 	  }
+	  
+	  // Render the page
 	  res.render("creategroup",{item: name});
     })
 });
 
+// Endpoint for pulling groups from the database
 router.get("/findgroup",function(req,res){
 	
+	// Database find command
 	Group.find({},function(err, item) {
       console.log(item); console.log(item.length);
 	  console.log(item[0].classname);
@@ -346,7 +357,7 @@ router.get("/findgroup",function(req,res){
 	  let day = [];
 	  let time = [];
 	  
-	  
+	  // Format the data in individual array for each value
 	  while(x<item.length){
 		 ids.push(item[x].id);
 		 name.push(item[x].classname);
@@ -355,6 +366,8 @@ router.get("/findgroup",function(req,res){
 		 time
 		 x+=1;
 	  }
+	  
+	  // Render the page and inject the data
 	  res.render("findgroup",{item: name, day:day,time:time, ids:ids});
     })
 	
