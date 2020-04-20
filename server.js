@@ -425,6 +425,7 @@ router.get("/creategroup",function(req,res){
 var ClassSchema = new Schema({
     classname: String,
     crn: String,
+});
 
 var Class = mongoose.model("Class", ClassSchema);
 
