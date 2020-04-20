@@ -53,11 +53,9 @@
 						<li><a href="#">Page 3</a></li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="/tutorial">Tutorial</a>
-					<li><a href="/creategroup">Create a new group</a></li>
+				<li><a href="/tutorial">Tutorial</a></li>
+				<li class="active"><a href="/creategroup">Create a new group</a></li>
 				<li><a href="/findgroup">Find a group</a></li>
-				</li>
 			</ul>
 
 			<ul class="list-unstyled CTAs">
@@ -72,99 +70,112 @@
 					<button type="button" id="sidebarCollapse" class="btn btn-info">
 						<i class="fas fa-align-left"></i>
 						<span></span>
-          </button>
-          <h1 style="font-family: Merienda One; color: rgb(154, 128, 179);">Virtual Connections </h1>
+					</button>
+					<h1 style="font-family: Merienda One; color: rgb(154, 128, 179);">Virtual Connections </h1>
 				</div>
 			</nav>
-			<section>
+			
+			<section style="margin-left: 5%;">
 				<h1>Create a Group</h1>
 				<h2>Get started!</h2>
-            </section>
-            <section style="width:50%;display:inline-block">
-                <p>Start by selecting a course, day, and time that works best for you.</p>
-			        	<br>
-                <br>
-                <form id="tableForm" action="/makegroup" method="post">
-                    <ul style="list-style-type:none">
-                      <li>
-                        <select id = "classselection" class="selectpicker" data-style="btn-info" name="classpicker">
-                          <optgroup label="Select Class">
-                            <option name="" value="0">Select Class</option>
-                          </optgroup>
-                        </select>
-                      </li>
-                      <br>
-                      <li>
-                        <select class="selectpicker" data-style="btn-info" name="daypicker">
-                          <optgroup label="Select Meeting Day">
-                            <option name="" value="0">Select Meeting Day</option>
-                            <option name="Monday" value="Monday">Monday</option>
-                            <option name="Tuesday" value="Tuesday">Tuesday</option>
-                            <option name="Wednesday" value="Wednesday">Wednesday</option>
-                            <option name="Thursday" value="Thursday">Thursday</option>
-                            <option name="Friday" value="Friday">Friday</option>
-                          </optgroup>
-                        </select>
-                      </li>
-                      <br>
-                      <li>
-                        <select class="selectpicker" data-style="btn-info" name="timepicker">
-                          <optgroup label="Select Meeting Time">
-                            <option name="" value="0">Select Meeting Time</option>
-                            <option name="10am" value="10">10:00 am</option>
-                            <option name="10.5am" value="10.5">10:30 am</option>
-                            <option name="11am" value="11">11:00 am</option>
-                            <option name="11.5am" value="11.5">11:30 am</option>
-                            <option name="12am" value="12">12:00 pm</option>
-                            <option name="12.5pm" value="12.5">12:30 pm</option>
-                            <option name="1pm" value="1">1:00 pm</option>
-                            <option name="1.5pm" value="1.5">1:30 pm</option>
-                            <option name="2pm" value="2">2:00 pm</option>
-                            <option name="2.5pm" value="2.5">2:30 pm</option>
-                            <option name="3pm" value="3">3:00 pm</option>
-                            <option name="3.5pm" value="3.5">3:30 pm</option>
-                            <option name="4pm" value="4">4:00 pm</option>
-                            <option name="4.5pm" value="4.5">4:30 pm</option>
-                            <option name="5pm" value="5">5:00 pm</option>
-                          </optgroup>
-                        </select>
-                      </li>
-                      <br>
-                      <li>
-                        <input type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);">
-                      </li>
-                    </ul>
-                  </form>
-            </section>
-            <div style="float:right;width:50%">
-            <img src="/creategimg" alt="group"  width=75% style="float:right;">
-            </div>
+			</section>
+			
+			<section style="margin-left: 5%;">
+				<div class="row">
+					<div class="col">
+						<p>Start by selecting a course, day, and time that works best for you.</p>					
+						<br>
+						<form id="tableForm" action="/makegroup" method="post">
+							<ul style="list-style-type:none">
+							  <li>
+								<select id = "classselection" class="selectpicker" data-style="btn-info" name="classpicker">
+								  <optgroup label="Select Class">
+									<option name="" value="0">Select Class</option>
+								  </optgroup>
+								</select>
+							  </li>
+							  <br>
+							  <li>
+								<select class="selectpicker" data-style="btn-info" name="daypicker">
+								  <optgroup label="Select Meeting Day">
+									<option name="" value="0">Select Meeting Day</option>
+									<option name="Monday" value="Monday">Monday</option>
+									<option name="Tuesday" value="Tuesday">Tuesday</option>
+									<option name="Wednesday" value="Wednesday">Wednesday</option>
+									<option name="Thursday" value="Thursday">Thursday</option>
+									<option name="Friday" value="Friday">Friday</option>
+								  </optgroup>
+								</select>
+							  </li>
+							  <br>
+							  <li>
+								<select class="selectpicker" data-style="btn-info" name="timepicker">
+								  <optgroup label="Select Meeting Time">
+									<option name="" value="0">Select Meeting Time</option>
+									<option name="10am" value="10">10:00 am</option>
+									<option name="10.5am" value="10.5">10:30 am</option>
+									<option name="11am" value="11">11:00 am</option>
+									<option name="11.5am" value="11.5">11:30 am</option>
+									<option name="12am" value="12">12:00 pm</option>
+									<option name="12.5pm" value="12.5">12:30 pm</option>
+									<option name="1pm" value="1">1:00 pm</option>
+									<option name="1.5pm" value="1.5">1:30 pm</option>
+									<option name="2pm" value="2">2:00 pm</option>
+									<option name="2.5pm" value="2.5">2:30 pm</option>
+									<option name="3pm" value="3">3:00 pm</option>
+									<option name="3.5pm" value="3.5">3:30 pm</option>
+									<option name="4pm" value="4">4:00 pm</option>
+									<option name="4.5pm" value="4.5">4:30 pm</option>
+									<option name="5pm" value="5">5:00 pm</option>
+								  </optgroup>
+								</select>
+							  </li>
+							  <br>
+							  <li>
+								<input type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);">
+							  </li>
+							  <br>
+							</ul>
+						</form>
+					</div>
+					<div class="col">
+						<img src="/creategimg" alt="group" style="margin-left: 10%; margin-right: 10%; width:400px;">
+					</div>
+				</div>
+				
+			</section>
+			
 		</div>
+		<div class="overlay"></div>
 	</div>
-  <script>
-    window.x = '<%= item%>';
-    var names = window.x.split(",");
-    console.log(names);
-    var select = document.getElementById("classselection");
-    for(var i =0;i<names.length;i++){
-      var opt = names[i];
-      var el = document.createElement("Option");
-      el.textContent = opt;
-      el.value = opt;
-      select.appendChild(el);
-    }
-  </script>
+	<script>
+		window.x = '<%= item%>';
+		var names = window.x.split(",");
+		console.log(names);
+		var select = document.getElementById("classselection");
+		for(var i =0;i<names.length;i++){
+			var opt = names[i];
+			var el = document.createElement("Option");
+			el.textContent = opt;
+			el.value = opt;
+			select.appendChild(el);
+		}
+	</script>
   
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
 	<!-- jQuery CDN - Slim version (=without AJAX) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	
 	<!-- Popper.JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	
 	<!-- Bootstrap JS -->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	
 	<!-- jQuery Custom Scroller CDN -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
