@@ -26,7 +26,7 @@ var UserSchema = new Schema({
 		required: false,
 	}
 });
-
+//method to hash the password before saving it to the database
 UserSchema.pre("save", function(next) {
     console.log(this);
     var user = this;
@@ -41,6 +41,7 @@ UserSchema.pre("save", function(next) {
     });
 });
 
+//a method to authenticate the user
 UserSchema.statics.authenticate = function (User, email, password, callback) {
     User.findOne({ email: email })
         .exec(function (err, user) {
