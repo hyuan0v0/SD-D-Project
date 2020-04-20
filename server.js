@@ -198,7 +198,9 @@ router.get("/deletegoal", function (req, res) {
 router.get("/scheduled", function (req, res) {
     res.sendFile(path2 + "scheduledevents.png");
 });
-
+router.get("/creategimg", function (req, res) {
+    res.sendFile(path2 + "createg.jpg");
+});
 router.get("/login", function (req, res) {
     res.render("login.html");
 });
