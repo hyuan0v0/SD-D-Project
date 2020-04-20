@@ -1,9 +1,9 @@
 #calendar{
-    width:50%;
+    width:100%;
     display:inline-block;
 }
 #rightEvents{
-    width: 40%;
+    width: 100%;
     display: block;
     border-color: rgb(78, 78, 185);
     border-style: double;
