@@ -18,16 +18,6 @@ const Schema = mongoose.Schema;
 const requireLogin = require("./middleware/requireLogin.js");
 var bodyParser = require('body-parser');
 
-
-//mongoose schema for the groups
-var groupSchema = new mongoose.Schema({
- classname: String,
- meetingday: String,
- meetingtime: String,
- members: [String]
-});
-var Group = mongoose.model("Group", groupSchema);
-
 //connecting to the database
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -129,7 +119,9 @@ db.once("open", () => {
     console.log("successfully connected");
 })
 
-//default routing
+
+//------------------------Start of Routing--------------------------------//
+
 router.use(function (req, res, next) {
     console.log("/" + req.method);
     next();
@@ -250,11 +242,48 @@ router.get("/signup_success", function (req, res) {
     res.render("signup_success");
 })
 
-
-router.get("/getClass",function(req,res){
-  console.log("Creating group");
-  res.sendFile(path + "creategroup.html");
+//renders the create groups page + pulls class list from database
+router.get("/creategroup",function(req,res){
+  Class.find({},function(err, item) {
+      console.log(item[0]);
+      console.log(item.length);
+      console.log(item[0].classname);
+      var x = 0;
+      let name = [];
+      
+      while(x<item.length){
+         name.push(item[x].classname);
+         x+=1;
+      }
+      res.render("creategroup",{item: name});
+    })
 });
+//renders find groups and pulls  groups from the database
+router.get("/findgroup",function(req,res){
+    
+    Group.find({},function(err, item) {
+      console.log(item); console.log(item.length);
+      console.log(item[0].classname);
+      var x = 0;
+      let ids = []
+      let name = [];
+      let day = [];
+      let time = [];
+      
+      
+      while(x<item.length){
+         ids.push(item[x].id);
+         name.push(item[x].classname);
+         day.push(item[x].meetingday);
+         time.push(item[x].meetingtime);
+         time
+         x+=1;
+      }
+      res.render("findgroup",{item: name, day:day,time:time, ids:ids});
+    })
+    
+});
+
 
 app.use("/", router);
 
@@ -316,15 +345,6 @@ router.post("/signup", (req, res) => {
     });
 });
 
-//Courselist Database Setup
-var ClassSchema = new Schema({
-    classname: String,
-    crn: String,
-});
-
-var Class = mongoose.model("Class", ClassSchema);
-
-// Endpoint to add classes to database
 router.post("/class",(req,res) => {
 
   // Format data
@@ -339,31 +359,9 @@ router.post("/class",(req,res) => {
     if (err){
       console.log(err);
     } else {
-		return res.sendStatus(200)
-	}
+        return res.sendStatus(200)
+    }
   });
-});
-
-// Endpoint for rendering the creategroup page with groups from database
-router.get("/creategroup",function(req,res){
-	
-	// Database find command
-	Class.find({},function(err, item) {
-      console.log(item[0]);
-	  console.log(item.length);
-	  console.log(item[0].classname);
-	  var x = 0;
-	  let name = [];
-	  
-	  // Format data
-	  while(x<item.length){
-		 name.push(item[x].classname);
-		 x+=1;
-	  }
-	  
-	  // Render the page
-	  res.render("creategroup",{item: name});
-    })
 });
 
 // Endpoint for pulling groups from the database
@@ -393,5 +391,48 @@ router.get("/findgroup",function(req,res){
 	  res.render("findgroup",{item: name, day:day,time:time, ids:ids});
     })
 	
+
 });
 
+// Endpoint for rendering the creategroup page with groups from database
+router.get("/creategroup",function(req,res){
+	
+	// Database find command
+	Class.find({},function(err, item) {
+      console.log(item[0]);
+	  console.log(item.length);
+	  console.log(item[0].classname);
+	  var x = 0;
+	  let name = [];
+	  
+	  // Format data
+	  while(x<item.length){
+		 name.push(item[x].classname);
+		 x+=1;
+	  }
+	  
+	  // Render the page
+	  res.render("creategroup",{item: name});
+    })
+});
+
+//------------------------End of Routing--------------------------------//
+
+
+//------------------------Database setup--------------------------------//
+
+//Courselist Database Setup
+var ClassSchema = new Schema({
+    classname: String,
+    crn: String,
+
+var Class = mongoose.model("Class", ClassSchema);
+
+var groupSchema = new mongoose.Schema({
+ classname: String,
+ meetingday: String,
+ meetingtime: String,
+ members: [String]
+});
+var Group = mongoose.model("Group", groupSchema);
+//------------------------End of Database Setup-------------------------//
