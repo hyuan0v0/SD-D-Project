@@ -1,67 +1,68 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-//create user schema
-var UserSchema = new Schema({
-    firstname: {
-        type: String,
-        required: true,
-    },
-    lastname: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type:String,
-        required: true
-    },
-	groups: {
-		type: String,
-		required: false,
-	}
+const { Schema } = mongoose;
+
+// create user schema
+const UserSchema = new Schema({
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  groups: {
+    type: String,
+    required: false,
+  },
 });
-//method to hash the password before saving it to the database
-UserSchema.pre("save", function(next) {
-    console.log(this);
-    var user = this;
-    console.log(user.password)
-    bcrypt.hash(user.password,10,(err,hash)=>{
-        if (err){
-        console.log(err);
-        return err;
-        }
-        user.password = hash;
-        next();
-    });
+// method to hash the password before saving it to the database
+UserSchema.pre('save', (next) => {
+  console.log(this);
+  const user = this;
+  console.log(user.password);
+  bcrypt.hash(user.password, 10, (err, hash) => {
+    if (err) {
+      console.log(err);
+      return err;
+    }
+    user.password = hash;
+    return next();
+  });
 });
 
-//a method to authenticate the user
-UserSchema.statics.authenticate = function (User, email, password, callback) {
-    User.findOne({ email: email })
-        .exec(function (err, user) {
-        if (err) {
-            return callback(err)
-        } else if (!user) {
-            var err = new Error('User not found.');
-            err.status = 401;
-            return callback(err);
+// a method to authenticate the user
+UserSchema.statics.authenticate = (User, email, password, callback) => {
+  User.findOne({ email })
+    .exec((err, user) => {
+      if (err) {
+        return callback(err);
+      } if (!user) {
+        const error = new Error('User not found.');
+        error.status = 401;
+        return callback(error);
+      }
+      bcrypt.compare(password, user.password, (err2, result) => {
+        if (result === true) {
+          return callback(null, user);
         }
-        bcrypt.compare(password, user.password, function (err, result) {
-            if (result === true) {
-                return callback(null, user);
-            } else {
-                var err = new Error("Incorrect password.")
-                return callback(err);
-            }
-        });
+        const error = new Error('Incorrect password.');
+        return callback(error);
+      });
+      return callback();
     });
-}
+};
 
-//export user model
-module.exports = mongoose.model("User", UserSchema);
+// export user model
+module.exports = mongoose.model('User', UserSchema);
