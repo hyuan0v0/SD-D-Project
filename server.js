@@ -196,6 +196,9 @@ router.get("/dashboard", requireLogin, function (req, res,next) {
 router.get("/dashcss", function (req, res) {
     res.sendFile(path4 + "dashboard.css");
 });
+router.get("/aboutcss", function (req, res) {
+    res.sendFile(path4 + "aboutus.css");
+});
 
 router.get("/tutorial", function (req, res) {
     res.sendFile(path + "tutorial.html");
@@ -211,6 +214,27 @@ router.get("/scheduled", function (req, res) {
 });
 router.get("/creategimg", function (req, res) {
     res.sendFile(path2 + "createg.jpg");
+});
+router.get("/mf", function (req, res) {
+    res.sendFile(path2 + "mf.png");
+});
+router.get("/mr", function (req, res) {
+    res.sendFile(path2 + "mr.png");
+});
+router.get("/gr", function (req, res) {
+    res.sendFile(path2 + "gr.png");
+});
+router.get("/lt", function (req, res) {
+    res.sendFile(path2 + "lt.png");
+});
+router.get("/hy", function (req, res) {
+    res.sendFile(path2 + "hy.png");
+});
+router.get("/moreinfo", function (req, res) {
+    res.sendFile(path2 + "moreinfo.png");
+});
+router.get("/aboutusheader", function (req, res) {
+    res.sendFile(path2 + "aboutusheader.jpg");
 });
 router.get("/login", function (req, res) {
     res.render("login.html");
