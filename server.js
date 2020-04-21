@@ -221,6 +221,9 @@ router.get('/dashboard', requireLogin, (req, res, next) => {
 router.get('/dashcss', (req, res) => {
   res.sendFile(`${path4}dashboard.css`);
 });
+router.get("/aboutcss", function (req, res) {
+    res.sendFile(path4 + "aboutus.css");
+});
 
 router.get('/tutorial', (req, res) => {
   res.sendFile(`${path}tutorial.html`);
@@ -237,8 +240,34 @@ router.get('/scheduled', (req, res) => {
 router.get('/creategimg', (req, res) => {
   res.sendFile(`${path2}createg.jpg`);
 });
+<<<<<<< HEAD
 router.get('/login', (req, res) => {
   res.render('login.html');
+=======
+router.get("/mf", function (req, res) {
+    res.sendFile(path2 + "mf.png");
+});
+router.get("/mr", function (req, res) {
+    res.sendFile(path2 + "mr.png");
+});
+router.get("/gr", function (req, res) {
+    res.sendFile(path2 + "gr.png");
+});
+router.get("/lt", function (req, res) {
+    res.sendFile(path2 + "lt.png");
+});
+router.get("/hy", function (req, res) {
+    res.sendFile(path2 + "hy.png");
+});
+router.get("/moreinfo", function (req, res) {
+    res.sendFile(path2 + "moreinfo.png");
+});
+router.get("/aboutusheader", function (req, res) {
+    res.sendFile(path2 + "aboutusheader.jpg");
+});
+router.get("/login", function (req, res) {
+    res.render("login.html");
+>>>>>>> master
 });
 
 router.get('/logincss', (req, res) => {
@@ -416,6 +445,7 @@ router.get('/findgroup', (req, res) => {
 });
 
 // Endpoint for rendering the creategroup page with groups from database
+<<<<<<< HEAD
 router.get('/creategroup', (req, res) => {
   // Database find command
   Class.find({}, (err, item) => {
@@ -437,3 +467,47 @@ router.get('/creategroup', (req, res) => {
 });
 
 // ------------------------End of Routing--------------------------------//
+=======
+router.get("/creategroup",function(req,res){
+	
+	// Database find command
+	Class.find({},function(err, item) {
+      console.log(item[0]);
+	  console.log(item.length);
+	  console.log(item[0].classname);
+	  var x = 0;
+	  let name = [];
+	  
+	  // Format data
+	  while(x<item.length){
+		 name.push(item[x].classname);
+		 x+=1;
+	  }
+	  
+	  // Render the page
+	  res.render("creategroup",{item: name});
+    })
+});
+
+//------------------------End of Routing--------------------------------//
+
+
+//------------------------Database setup--------------------------------//
+
+//Courselist Database Setup
+var ClassSchema = new Schema({
+    classname: String,
+    crn: String,
+});
+
+var Class = mongoose.model("Class", ClassSchema);
+
+var groupSchema = new mongoose.Schema({
+ classname: String,
+ meetingday: String,
+ meetingtime: String,
+ members: [String]
+});
+var Group = mongoose.model("Group", groupSchema);
+//------------------------End of Database Setup-------------------------//
+>>>>>>> master
