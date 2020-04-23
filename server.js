@@ -19,6 +19,7 @@ const User = require('./user.js');
 
 const { Schema } = mongoose;
 const requireLogin = require('./middleware/requireLogin.js');
+const updateButtons = require('./middleware/updateButtons');
 
 // ------------------------Database setup--------------------------------//
 
@@ -152,29 +153,8 @@ router.use((req, res, next) => {
 });
 
 // loading the default page
-router.get('/', (req, res) => {
-  if (req.session.user && req.cookies.user_sid) {
-    // TODO: replace this with rendering stuff instead
-    let html = fs.readFileSync(`${path}index.html`, 'utf8');
-    html = html.replace(`<ul class="nav navbar-nav navbar-right">
-<li class="nav-item">
-<a class="nav-link" href="/login"><span>Login</span></a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="/signup"><span>Sign Up</span></a>
-</li>
-</ul>`, `<ul class="nav navbar-nav navbar-right">
-<li class="nav-item">
-<a class="nav-link" href="/dashboard"><span>My Dashboard</span></a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="/logout"><span>Log out</span></a>
-</li>
-</ul>`);
-    res.send(html);
-  } else {
-    res.render('index.html');
-  }
+router.get('/', updateButtons, (req, res) => {
+  res.render('index.html');
 });
 
 
@@ -273,7 +253,11 @@ router.get('/logout', (req, res) => {
   req.session.user = null;
   req.session.firstname = null;
   res.clearCookie('user_id');
-  res.redirect('/');
+  res.locals.firstName = 'Login';
+  res.locals.firstLink = '/login';
+  res.locals.secondName = 'Sign Up';
+  res.locals.secondLink = '/signup';
+  res.render('index.html');
 });
 
 router.get('/signup', (req, res) => {

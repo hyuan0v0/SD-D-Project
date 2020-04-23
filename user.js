@@ -28,7 +28,7 @@ const UserSchema = new Schema({
   },
 });
 // method to hash the password before saving it to the database
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function hashPassword(next) {
   console.log(this);
   const user = this;
   console.log(user.password);
@@ -53,14 +53,13 @@ UserSchema.statics.authenticate = (User, email, password, callback) => {
         error.status = 401;
         return callback(error);
       }
-      bcrypt.compare(password, user.password, (err2, result) => {
+      return bcrypt.compare(password, user.password, (err2, result) => {
         if (result === true) {
           return callback(null, user);
         }
         const error = new Error('Incorrect password.');
         return callback(error);
       });
-      return callback();
     });
 };
 
