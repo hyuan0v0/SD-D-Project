@@ -43,7 +43,7 @@ UserSchema.pre('save', function hashPassword(next) {
 });
 
 // a method to authenticate the user
-UserSchema.statics.authenticate = function (User, email, password, callback) {
+UserSchema.statics.authenticate = (User, email, password, callback) => {
   User.findOne({ email })
     .exec((err, user) => {
       if (err) {
