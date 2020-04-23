@@ -643,7 +643,6 @@ function createCalendar(calendar, element, adjuster) {
   AddLabels();
   AddDays();
 }
-
 // call to create calendar
 function calendar(el, data, settings) {
   const obj = new Calendar(data, settings);
