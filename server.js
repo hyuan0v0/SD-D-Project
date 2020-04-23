@@ -200,6 +200,10 @@ router.get("/dashcss", function (req, res) {
 router.get("/tutorial", function (req, res) {
     res.sendFile(path + "tutorial.html");
 });
+router.get("/usergroups", function (req, res) {
+    res.sendFile(path + "usergroups.html");
+});
+
 router.get("/addgoals", function (req, res) {
     res.sendFile(path2 + "addgoals.png");
 });

@@ -37,28 +37,14 @@
 			<ul class="list-unstyled components">
 				<li>
 					<a href="/dashboard">Home</a>
-				</li>
-				<li>
-					<a href="#calendarSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Calendar</a>
-					<ul class="collapse list-unstyled" id="calendarSubmenu">
-						<li><a href="#">Calendar 1</a></li>
-						<li><a href="#">Calendar 2</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="#">Page 1</a></li>
-						<li><a href="#">Page 2</a></li>
-						<li><a href="#">Page 3</a></li>
-					</ul>
-				</li>
+				</li>				
 				<li><a href="/tutorial">Tutorial</a></li>
 				<li class="active"><a href="/creategroup">Create a new group</a></li>
 				<li><a href="/findgroup">Find a group</a></li>
+				<li><a href="/usergroups">My groups</a></li>
 			</ul>
 			<ul class="list-unstyled CTAs">
-				<a class="btn btn-lg btn-primary btn-block" href="/logout" type="submit">Log Out</a>
+				<li><a class="logout" href="/logout" type="submit">Log Out</a></li>
 			</ul>
 		</nav>
 		
@@ -80,12 +66,16 @@
 			</section>
 			
 			<section style="margin-left: 5%;">
-				<div class="row">
-					<div class="col">
-						<p>Start by selecting a course, day, and time that works best for you.</p>					
-						<br>
+				<div class="row" style="margin: 0px;">
+					<div class="col" style="padding: 0px;">
+						<p style="padding-bottom: 10px;">Start by selecting a course, day, and time that works best for you.</p>
 						<form id="tableForm" action="/makegroup" method="post">
-							<ul style="list-style-type:none">
+							<ul style="list-style-type:none; padding-left: 0px;">
+								<li>
+									<label for="groupName">Group Name</label>
+									<input type="text" name="groupname" id="groupName" class="form-control" placeholder="Group Name" required>
+								</li>
+								<br>
 							  <li>
 								<select id = "classselection" class="selectpicker" data-style="btn-info" name="classpicker">
 								  <optgroup label="Select Class">
@@ -129,11 +119,16 @@
 								  </optgroup>
 								</select>
 							  </li>
+							  <li>Select Meeting Date</li>
+							  <li>Select Meeting Start Time</li>
+							  <li>Select Meeting End Time</li>
+							  <li>Owner</li>
+							  <li>Group Members</li>
 							  <br>
 							  <li>
-								<input type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);">
+								<!-- <input type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);"> -->
+								<button class="btn btn-lg btn-primary" type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);">Submit</button>
 							  </li>
-							  <br>
 							</ul>
 						</form>
 					</div>
