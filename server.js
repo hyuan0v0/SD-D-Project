@@ -36,6 +36,8 @@ const groupSchema = new mongoose.Schema({
   meetingday: String,
   meetingtime: String,
   members: [String],
+  owner: String,
+
 });
 const Group = mongoose.model('Group', groupSchema);
 // ------------------------End of Database Setup-------------------------//
@@ -86,8 +88,10 @@ app.post('/makegroup', requireLogin, (req, res, next) => {
   const groupData = {
     classname: req.body.classpicker,
     meetingday: req.body.daypicker,
-    meetingtime: req.body.timepicker,
+    starttime: req.body.starttimepicker,
+    endtime: req.body.endtimepicker,
     members: [userName],
+    owner: userName,
   };
   Group.create(groupData, (err) => {
     if (err) {
