@@ -1,0 +1,42 @@
+.para{
+    font-family: 'Trebuchet MS';
+    font-size:16px;
+  }
+  .smallHeadings{
+    font-family: 'Trebuchet MS';
+    font-weight: bold;
+    font-style: italic;
+  }
+  .bgimg-1 {
+  background-image: url('/aboutusheader');
+  min-height: 400px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.margins {
+    margin-bottom: 16px;
+    display: block;
+    box-sizing: inherit;
+}
+.squareItem{
+  float: left;
+  width: 33.33333%;
+  padding: 0 8px;
+}
+#Names{
+  font-family: "Merienda One";
+  font-weight: bold;
+  font-size: 15px;
+}
+.eachRow{
+  padding: 0 8px;
+  display: block;
+  box-sizing: inherit;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+}
