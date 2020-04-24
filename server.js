@@ -22,6 +22,7 @@ const requireLogin = require('./middleware/requireLogin.js');
 const updateButtons = require('./middleware/updateButtons');
 
 // ------------------------Database setup--------------------------------//
+// fixes depecration warning otherwise
 mongoose.set('useCreateIndex', true);
 
 // Courselist Database Setup
