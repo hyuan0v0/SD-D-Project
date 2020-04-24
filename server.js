@@ -208,8 +208,8 @@ router.get('/aboutcss', (req, res) => {
 router.get('/tutorial', (req, res) => {
   res.sendFile(`${path}tutorial.html`);
 });
-router.get("/usergroups", function (req, res) {
-    res.sendFile(`${path}usergroups.html`);
+router.get('/usergroups', (req, res) => {
+  res.sendFile(`${path}usergroups.html`);
 });
 
 router.get('/addgoals', (req, res) => {
