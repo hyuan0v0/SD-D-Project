@@ -304,16 +304,16 @@ router.get('/creategroup', (req, res) => {
 router.get('/usergroups', (req, res) => {
 	const userId = req.session.user;
   Group.find({}, (err, item) => {
-	const found = [];
+	const names = [];
 	let x = 0;
     while (x<item.length){
 		if(item[x].members.includes(userId)){
-			found.push(item[x])
+			names.push(item[x].groupname)
 		}
 		x+=1;
 	}
     res.render('usergroups', {
-      groups:found
+      name:names
     });
   });
 });
