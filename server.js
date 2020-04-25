@@ -34,7 +34,8 @@ const Class = mongoose.model('Class', ClassSchema);
 const groupSchema = new mongoose.Schema({
   classname: String,
   groupname: String,
-  // meetingday: req.body.daypicker,
+  meetingday: String,
+  meetingtime: String,
   starttime: String,
   endtime: String,
   members: [String],
@@ -91,7 +92,8 @@ app.post('/makegroup', requireLogin, (req, res, next) => {
   const groupData = {
     classname: req.body.classpicker,
     groupname: req.body.groupname,
-    // meetingday: req.body.daypicker,
+    meetingday: req.body.daypicker,
+    meetingtime: req.body.starttimepickerold,
     starttime: req.body.starttimepicker,
     endtime: req.body.endtimepicker,
     members: [userId],
@@ -341,15 +343,21 @@ router.get('/usergroups', (req, res) => {
   const userId = req.session.user;
   Group.find({}, (err, item) => {
     const names = [];
+    const days = [];
+    const times = [];
     let x = 0;
     while (x < item.length) {
       if (item[x].members.includes(userId)) {
         names.push(item[x].groupname);
+        days.push(item[x].meetingday);
+        times.push(item[x].meetingtime);
       }
       x += 1;
     }
     res.render('usergroups', {
       name: names,
+      day: days,
+      time: times,
     });
   });
 });
