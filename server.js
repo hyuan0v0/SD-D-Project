@@ -32,7 +32,7 @@ const ClassSchema = new Schema({
 const Class = mongoose.model('Class', ClassSchema);
 
 const groupSchema = new mongoose.Schema({
-  classname: String,
+	classname: String,
     groupname: String,
     // meetingday: req.body.daypicker,
     starttime: String,
@@ -316,12 +316,36 @@ router.get('/findgroup', (req, res) => {
 
     while (x < item.length) {
       ids.push(item[x].id);
-      name.push(item[x].classname);
+      name.push(item[x].groupname);
       day.push(item[x].meetingday);
       time.push(item[x].meetingtime);
       x += 1;
     }
     res.render('findgroup', {
+      item: name, day, time, ids,
+    });
+  });
+});
+
+router.get('/usergroups', (req, res) => {
+  Group.find({}, (err, item) => {
+    console.log(item); console.log(item.length);
+    console.log(item[0].classname);
+    let x = 0;
+    const ids = [];
+    const name = [];
+    const day = [];
+    const time = [];
+
+
+    while (x < item.length) {
+      ids.push(item[x].id);
+      name.push(item[x].groupname);
+      day.push(item[x].meetingday);
+      time.push(item[x].meetingtime);
+      x += 1;
+    }
+    res.render('usergroups', {
       item: name, day, time, ids,
     });
   });
