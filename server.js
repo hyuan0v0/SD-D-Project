@@ -112,15 +112,25 @@ app.post('/makegroup', requireLogin, (req, res, next) => {
 // adding to a group
 app.post('/addgroup', requireLogin, (req, res, next) => {
   const userid = req.session.user;
-  /*
-  User.update({ _id: userid }, { $set: { groups: req.body.classpicker } }, (err, item) => {
-
+  const groupname = req.body.classpicker;
+  Group.find({}, (err, item) => {
+	const found = []
+	const members = [];
+	let x = 0;
+    while (x<item.length){
+		if(item[x].groupname == groupname){
+			members.push(item[x].members);
+			found.push(item[x].id);
+		}
+		x+=1;
+	}
+	console.log(found[0]);
+	members[0].push(userid);
+	Group.updateOne({ _id: found[0] }, { $set: { members: members[0] } }, (err, item) => {
   });
-  */
-  User.find({ _id: userid }, (err, item) => {
-    console.log(item);
   });
-  res.redirect('/');
+  
+  res.redirect('/usergroups');
   next();
 });
 
@@ -140,7 +150,7 @@ app.post('/deletegroup', requireLogin, (req, res, next) => {
   });
   });
   
-  res.redirect('/usergroups');
+  res.redirect('/dashboard');
   next();
 });
 
