@@ -35,8 +35,11 @@ const Class = mongoose.model('Class', ClassSchema);
 
 const groupSchema = new mongoose.Schema({
   classname: String,
+  groupname: String,
   meetingday: String,
   meetingtime: String,
+  starttime: String,
+  endtime: String,
   members: [String],
   owner: String,
 
@@ -84,16 +87,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // creating the groups in the database
 app.post('/makegroup', requireLogin, (req, res, next) => {
   const userName = req.session.firstname;
+  const userId = req.session.user;
   userName.concat(' ');
   userName.concat(req.session.lastname);
 
   const groupData = {
     classname: req.body.classpicker,
+    groupname: req.body.groupname,
     meetingday: req.body.daypicker,
+    meetingtime: req.body.starttimepickerold,
     starttime: req.body.starttimepicker,
     endtime: req.body.endtimepicker,
-    members: [userName],
-    owner: userName,
+    members: [userId],
+    owner: userId,
   };
   Group.create(groupData, (err) => {
     if (err) {
@@ -101,24 +107,60 @@ app.post('/makegroup', requireLogin, (req, res, next) => {
     } else {
       console.log('Adding group to the database:');
       console.log(groupData);
-      res.redirect('/dashboard');
     }
   });
+  res.redirect('/usergroups');
   next();
 });
 
 // adding to a group
 app.post('/addgroup', requireLogin, (req, res, next) => {
   const userid = req.session.user;
-  /*
-  User.update({ _id: userid }, { $set: { groups: req.body.classpicker } }, (err, item) => {
+  const groupname = req.body.classpicker;
+  Group.find({}, (err, item) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const found = [];
+      const members = [];
+      let x = 0;
+      while (x < item.length) {
+        if (item[x].groupname === groupname) {
+          members.push(item[x].members);
+          found.push(item[x].id);
+        }
+        x += 1;
+      }
+      console.log(found[0]);
+      members[0].push(userid);
+      Group.updateOne({ _id: found[0] }, { $set: { members: members[0] } }, () => {
+      });
+    }
+  });
+  res.redirect('/usergroups');
+  next();
+});
 
+app.post('/deletegroup', requireLogin, (req, res, next) => {
+  const userid = req.session.user;
+  const groupname = req.body.classpicker;
+  Group.find({}, (err, item) => {
+    const owner = [];
+    const found = [];
+    let x = 0;
+    while (x < item.length) {
+      if (item[x].groupname === groupname) {
+        found.push(item[x].id);
+        owner.push(item[x].owner);
+      }
+      x += 1;
+    }
+    if (owner[0] === userid) {
+      Group.remove({ _id: found[0] }, () => {
+      });
+    }
   });
-  */
-  User.find({ _id: userid }, (err, item) => {
-    console.log(item);
-  });
-  res.redirect('/');
+  res.redirect('/dashboard');
   next();
 });
 
@@ -214,9 +256,6 @@ router.get('/aboutcss', (req, res) => {
 router.get('/tutorial', (req, res) => {
   res.sendFile(`${path}tutorial.html`);
 });
-router.get('/usergroups', (req, res) => {
-  res.sendFile(`${path}usergroups.html`);
-});
 
 router.get('/addgoals', (req, res) => {
   res.sendFile(`${path2}addgoals.png`);
@@ -301,27 +340,26 @@ router.get('/creategroup', (req, res) => {
     res.render('creategroup', { item: name });
   });
 });
-// renders find groups and pulls  groups from the database
-router.get('/findgroup', (req, res) => {
+
+router.get('/usergroups', (req, res) => {
+  const userId = req.session.user;
   Group.find({}, (err, item) => {
-    console.log(item); console.log(item.length);
-    console.log(item[0].classname);
+    const names = [];
+    const days = [];
+    const times = [];
     let x = 0;
-    const ids = [];
-    const name = [];
-    const day = [];
-    const time = [];
-
-
     while (x < item.length) {
-      ids.push(item[x].id);
-      name.push(item[x].classname);
-      day.push(item[x].meetingday);
-      time.push(item[x].meetingtime);
+      if (item[x].members.includes(userId)) {
+        names.push(item[x].groupname);
+        days.push(item[x].meetingday);
+        times.push(item[x].meetingtime);
+      }
       x += 1;
     }
-    res.render('findgroup', {
-      item: name, day, time, ids,
+    res.render('usergroups', {
+      name: names,
+      day: days,
+      time: times,
     });
   });
 });
@@ -420,7 +458,7 @@ router.get('/findgroup', (req, res) => {
     // Format the data in individual array for each value
     while (x < item.length) {
       ids.push(item[x].id);
-      name.push(item[x].classname);
+      name.push(item[x].groupname);
       day.push(item[x].meetingday);
       time.push(item[x].meetingtime);
       x += 1;
