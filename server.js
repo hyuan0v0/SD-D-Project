@@ -105,7 +105,7 @@ app.post('/makegroup', requireLogin, (req, res, next) => {
       console.log(groupData);
     }
   });
-  res.redirect('/');
+  res.redirect('/usergroups');
   next();
 });
 
@@ -121,6 +121,26 @@ app.post('/addgroup', requireLogin, (req, res, next) => {
     console.log(item);
   });
   res.redirect('/');
+  next();
+});
+
+app.post('/deletegroup', requireLogin, (req, res, next) => {
+  const groupname = req.body.classpicker;
+  Group.find({}, (err, item) => {
+	found = [];
+	let x = 0;
+    while (x<item.length){
+		if(item[x].groupname == groupname){
+			found.push(item[x].id);
+		}
+		x+=1;
+	}
+	Group.remove({ _id: found[0] }, (err, item) => {
+    console.log(item);
+  });
+  });
+  
+  res.redirect('/usergroups');
   next();
 });
 
