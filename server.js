@@ -138,18 +138,23 @@ app.post('/addgroup', requireLogin, (req, res, next) => {
 });
 
 app.post('/deletegroup', requireLogin, (req, res, next) => {
+  const userid = req.session.user;
   const groupname = req.body.classpicker;
   Group.find({}, (err, item) => {
+    const owner = [];
     const found = [];
     let x = 0;
     while (x < item.length) {
       if (item[x].groupname === groupname) {
         found.push(item[x].id);
+        owner.push(item[x].owner);
       }
       x += 1;
     }
-    Group.remove({ _id: found[0] }, () => {
-    });
+    if (owner[0] === userid) {
+      Group.remove({ _id: found[0] }, () => {
+      });
+    }
   });
   res.redirect('/dashboard');
   next();
