@@ -62,6 +62,7 @@
 
 			<section style="margin-left: 5%;">
 				<h1>My Groups</h1>
+				<p><%= groups%></p>
                 <p>See your participated groups.</p>
 			</section>
             <br>
@@ -71,35 +72,6 @@
 	</div>
 
 	<script>
-		window.x = '<%= item%>';
-		window.y = '<%= day%>';
-		window.z = '<%= time%>';
-		var names = window.x.split(",");
-		var days = window.y.split(",");
-		var times = window.z.split(",");
-		console.log(names);
-		console.log(days);
-		console.log(times);
-		var select = document.getElementById("groupselection");
-		for(var i =0;i<names.length;i++){
-			var opt = names[i];
-			var el = document.createElement("Option");
-			el.textContent = opt;
-			el.value = opt;
-			select.appendChild(el);
-
-
-		}
-
-		$('.selectpicker').change(function (e) {
-			var index = document.getElementById("groupselection").selectedIndex;
-			index = index -1;
-			if(index >= 0){
-				document.getElementById("day").innerHTML = days[index];
-				document.getElementById("time").innerHTML = times[index];
-			}
-		
-		});
 	</script>
 
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

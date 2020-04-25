@@ -84,6 +84,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // creating the groups in the database
 app.post('/makegroup', requireLogin, (req, res, next) => {
   const userName = req.session.firstname;
+  const userId = req.session.user;
   userName.concat(' ');
   userName.concat(req.session.lastname);
 
@@ -93,8 +94,8 @@ app.post('/makegroup', requireLogin, (req, res, next) => {
     // meetingday: req.body.daypicker,
     starttime: req.body.starttimepicker,
     endtime: req.body.endtimepicker,
-    members: [userName],
-    owner: userName,
+    members: [userId],
+    owner: userId,
   };
   Group.create(groupData, (err) => {
     if (err) {
@@ -215,9 +216,6 @@ router.get('/aboutcss', (req, res) => {
 router.get('/tutorial', (req, res) => {
   res.sendFile(`${path}tutorial.html`);
 });
-router.get('/usergroups', (req, res) => {
-  res.sendFile(`${path}usergroups.html`);
-});
 
 router.get('/addgoals', (req, res) => {
   res.sendFile(`${path2}addgoals.png`);
@@ -302,51 +300,20 @@ router.get('/creategroup', (req, res) => {
     res.render('creategroup', { item: name });
   });
 });
-// renders find groups and pulls  groups from the database
-router.get('/findgroup', (req, res) => {
-  Group.find({}, (err, item) => {
-    console.log(item); console.log(item.length);
-    console.log(item[0].classname);
-    let x = 0;
-    const ids = [];
-    const name = [];
-    const day = [];
-    const time = [];
-
-
-    while (x < item.length) {
-      ids.push(item[x].id);
-      name.push(item[x].groupname);
-      day.push(item[x].meetingday);
-      time.push(item[x].meetingtime);
-      x += 1;
-    }
-    res.render('findgroup', {
-      item: name, day, time, ids,
-    });
-  });
-});
 
 router.get('/usergroups', (req, res) => {
+	const userId = req.session.user;
   Group.find({}, (err, item) => {
-    console.log(item); console.log(item.length);
-    console.log(item[0].classname);
-    let x = 0;
-    const ids = [];
-    const name = [];
-    const day = [];
-    const time = [];
-
-
-    while (x < item.length) {
-      ids.push(item[x].id);
-      name.push(item[x].groupname);
-      day.push(item[x].meetingday);
-      time.push(item[x].meetingtime);
-      x += 1;
-    }
+	const found = [];
+	let x = 0;
+    while (x<item.length){
+		if(item[x].members.includes(userId)){
+			found.push(item[x])
+		}
+		x+=1;
+	}
     res.render('usergroups', {
-      item: name, day, time, ids,
+      groups:found
     });
   });
 });
@@ -445,7 +412,7 @@ router.get('/findgroup', (req, res) => {
     // Format the data in individual array for each value
     while (x < item.length) {
       ids.push(item[x].id);
-      name.push(item[x].classname);
+      name.push(item[x].groupname);
       day.push(item[x].meetingday);
       time.push(item[x].meetingtime);
       x += 1;
