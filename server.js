@@ -104,6 +104,7 @@ app.post('/makegroup', requireLogin, (req, res, next) => {
       console.log(groupData);
     }
   });
+  res.redirect('/');
   next();
 });
 
