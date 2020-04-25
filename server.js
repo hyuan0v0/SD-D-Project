@@ -33,10 +33,12 @@ const Class = mongoose.model('Class', ClassSchema);
 
 const groupSchema = new mongoose.Schema({
   classname: String,
-  meetingday: String,
-  meetingtime: String,
-  members: [String],
-  owner: String,
+    groupname: String,
+    // meetingday: req.body.daypicker,
+    starttime: String,
+    endtime: String,
+    members: [String],
+    owner: String,
 
 });
 const Group = mongoose.model('Group', groupSchema);
@@ -87,7 +89,8 @@ app.post('/makegroup', requireLogin, (req, res, next) => {
 
   const groupData = {
     classname: req.body.classpicker,
-    meetingday: req.body.daypicker,
+    groupname: req.body.groupname,
+    // meetingday: req.body.daypicker,
     starttime: req.body.starttimepicker,
     endtime: req.body.endtimepicker,
     members: [userName],
