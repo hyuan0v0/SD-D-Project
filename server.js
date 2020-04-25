@@ -32,13 +32,13 @@ const ClassSchema = new Schema({
 const Class = mongoose.model('Class', ClassSchema);
 
 const groupSchema = new mongoose.Schema({
-	classname: String,
-    groupname: String,
-    // meetingday: req.body.daypicker,
-    starttime: String,
-    endtime: String,
-    members: [String],
-    owner: String,
+  classname: String,
+  groupname: String,
+  // meetingday: req.body.daypicker,
+  starttime: String,
+  endtime: String,
+  members: [String],
+  owner: String,
 
 });
 const Group = mongoose.model('Group', groupSchema);
@@ -114,22 +114,25 @@ app.post('/addgroup', requireLogin, (req, res, next) => {
   const userid = req.session.user;
   const groupname = req.body.classpicker;
   Group.find({}, (err, item) => {
-	const found = []
-	const members = [];
-	let x = 0;
-    while (x<item.length){
-		if(item[x].groupname == groupname){
-			members.push(item[x].members);
-			found.push(item[x].id);
-		}
-		x+=1;
-	}
-	console.log(found[0]);
-	members[0].push(userid);
-	Group.updateOne({ _id: found[0] }, { $set: { members: members[0] } }, (err, item) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const found = [];
+      const members = [];
+      let x = 0;
+      while (x < item.length) {
+        if (item[x].groupname === groupname) {
+          members.push(item[x].members);
+          found.push(item[x].id);
+        }
+        x += 1;
+      }
+      console.log(found[0]);
+      members[0].push(userid);
+      Group.updateOne({ _id: found[0] }, { $set: { members: members[0] } }, () => {
+      });
+    }
   });
-  });
-  
   res.redirect('/usergroups');
   next();
 });
@@ -137,19 +140,17 @@ app.post('/addgroup', requireLogin, (req, res, next) => {
 app.post('/deletegroup', requireLogin, (req, res, next) => {
   const groupname = req.body.classpicker;
   Group.find({}, (err, item) => {
-	found = [];
-	let x = 0;
-    while (x<item.length){
-		if(item[x].groupname == groupname){
-			found.push(item[x].id);
-		}
-		x+=1;
-	}
-	Group.remove({ _id: found[0] }, (err, item) => {
-    console.log(item);
+    const found = [];
+    let x = 0;
+    while (x < item.length) {
+      if (item[x].groupname === groupname) {
+        found.push(item[x].id);
+      }
+      x += 1;
+    }
+    Group.remove({ _id: found[0] }, () => {
+    });
   });
-  });
-  
   res.redirect('/dashboard');
   next();
 });
@@ -332,18 +333,18 @@ router.get('/creategroup', (req, res) => {
 });
 
 router.get('/usergroups', (req, res) => {
-	const userId = req.session.user;
+  const userId = req.session.user;
   Group.find({}, (err, item) => {
-	const names = [];
-	let x = 0;
-    while (x<item.length){
-		if(item[x].members.includes(userId)){
-			names.push(item[x].groupname)
-		}
-		x+=1;
-	}
+    const names = [];
+    let x = 0;
+    while (x < item.length) {
+      if (item[x].members.includes(userId)) {
+        names.push(item[x].groupname);
+      }
+      x += 1;
+    }
     res.render('usergroups', {
-      name:names
+      name: names,
     });
   });
 });
