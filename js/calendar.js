@@ -668,6 +668,5 @@ for (let i = 0; i < rawEvents.length; i += 1) {
   events.push(tmp);
 }
 const element = document.getElementById('calendar');
-console.log(events);
 
 calendar(element, events, settings);
