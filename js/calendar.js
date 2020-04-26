@@ -661,7 +661,11 @@ if (xmlhttp.status === 200) {
 rawEvents = JSON.parse(rawEvents);
 const events = [];
 for (let i = 0; i < rawEvents.length; i += 1) {
-  events.push({ Date: new Date(rawEvents[i].Date), Title: rawEvents[i].Title });
+  const tmp = { Date: new Date(rawEvents[i].Date), Title: rawEvents[i].Title };
+  tmp.Date.setHours(0);
+  tmp.Date.setMinutes(0);
+  tmp.Date.setSeconds(0);
+  events.push(tmp);
 }
 const element = document.getElementById('calendar');
 console.log(events);
