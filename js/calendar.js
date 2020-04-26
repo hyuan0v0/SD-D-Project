@@ -649,20 +649,30 @@ function calendar(el, data, settings) {
   createCalendar(obj, el);
 }
 const settings = {};
-// Holds the events in a json format
-const events = [
-  { Date: new Date(2020, 2, 7), Title: 'Study at 3:25pm.' },
-  { Date: new Date(2020, 2, 18), Title: 'Test at 4pm', Link: 'https://google.com' },
-  { Date: new Date(2020, 2, 27), Title: 'Review Session1', Link: 'https://google.com' },
-  { Date: new Date(2020, 3, 27), Title: 'Review Session2', Link: 'https://google.com' },
-  { Date: new Date(2020, 3, 29), Title: 'Review Session3', Link: 'https://google.com' },
-  { Date: new Date(2020, 3, 29), Title: 'Test at 5pm', Link: 'https://google.com' },
-  { Date: new Date(2020, 3, 22), Title: 'Office Hours 12-2pm', Link: 'https://google.com' },
-  { Date: new Date(2020, 3, 22), Title: 'Study Group at 3pm', Link: 'https://google.com' },
-  { Date: new Date(2020, 3, 22), Title: 'Meet SD&D group 4pm', Link: 'https://google.com' },
-  { Date: new Date(2020, 3, 22), Title: 'Quiz at 6pm', Link: 'https://google.com' },
 
-];
+// getting the events via a call to the server
+let rawEvents = null;
+const xmlhttp = new XMLHttpRequest();
+xmlhttp.open('GET', '/eventlist', false);
+xmlhttp.send();
+if (xmlhttp.status === 200) {
+  rawEvents = xmlhttp.responseText;
+}
+rawEvents = JSON.parse(rawEvents);
+const events = [];
+for (let i = 0; i < rawEvents.length; i += 1) {
+  const tmp = { Date: new Date(rawEvents[i].Date), Title: rawEvents[i].Title };
+  const hours = (((tmp.Date.getHours() + 11) % 12) + 1);
+  const suffix = (tmp.Date.getHours() >= 12) ? 'pm' : 'am';
+  const mins = (tmp.Date.getMinutes() === 0) ? '00' : tmp.Date.getMinutes();
+  const timeStart = `${hours}:${mins}  ${suffix}`;
+  const title = `${rawEvents[i].Title} at ${timeStart}`;
+  tmp.Title = title;
+  tmp.Date.setHours(0);
+  tmp.Date.setMinutes(0);
+  tmp.Date.setSeconds(0);
+  events.push(tmp);
+}
 const element = document.getElementById('calendar');
 
 calendar(element, events, settings);

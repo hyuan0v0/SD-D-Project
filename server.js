@@ -492,4 +492,17 @@ router.get('/creategroup', (req, res) => {
   });
 });
 
+// send data to calendar on the front end
+router.get('/eventlist', (req, res) => {
+  Group.find({ members: req.session.user }, (err, item) => {
+    const events = [];
+    for (let i = 0; i < item.length; i += 1) {
+      console.log(item[i].starttime);
+      events.push({ Date: new Date(item[i].starttime), Title: item[i].groupname });
+    }
+    console.log(events);
+    res.send(events);
+  });
+});
+
 // ------------------------End of Routing--------------------------------//
