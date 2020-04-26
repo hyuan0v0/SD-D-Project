@@ -662,6 +662,12 @@ rawEvents = JSON.parse(rawEvents);
 const events = [];
 for (let i = 0; i < rawEvents.length; i += 1) {
   const tmp = { Date: new Date(rawEvents[i].Date), Title: rawEvents[i].Title };
+  const hours = (((tmp.Date.getHours() + 11) % 12) + 1);
+  const suffix = (tmp.Date.getHours() >= 12) ? 'pm' : 'am';
+  const mins = (tmp.Date.getMinutes() === 0) ? '00' : tmp.Date.getMinutes();
+  const timeStart = `${hours}:${mins}  ${suffix}`;
+  const title = `${rawEvents[i].Title} at ${timeStart}`;
+  tmp.Title = title;
   tmp.Date.setHours(0);
   tmp.Date.setMinutes(0);
   tmp.Date.setSeconds(0);
