@@ -222,6 +222,10 @@ router.get('/img', (req, res) => {
 router.get('/loginimg', (req, res) => {
   res.sendFile(`${path2}loginimg.png`);
 });
+router.get('/study1', (req, res) => {
+  res.sendFile(`${path2}studygroup1.jpg`);
+});
+
 router.get('/greytrees', (req, res) => {
   res.sendFile(`${path2}greytrees.jpg`);
 });
@@ -265,6 +269,15 @@ router.get('/deletegoal', (req, res) => {
 });
 router.get('/scheduled', (req, res) => {
   res.sendFile(`${path2}scheduledevents.png`);
+});
+router.get('/groupspage', (req, res) => {
+  res.sendFile(`${path2}groupspage.png`);
+});
+router.get('/joingroup', (req, res) => {
+  res.sendFile(`${path2}joingroup.png`);
+});
+router.get('/createimage', (req, res) => {
+  res.sendFile(`${path2}creategroup.png`);
 });
 router.get('/creategimg', (req, res) => {
   res.sendFile(`${path2}createg.jpg`);

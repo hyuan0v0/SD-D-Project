@@ -1,13 +1,13 @@
 .para{
-    font-family: 'Trebuchet MS';
-    font-size:16px;
-  }
-  .smallHeadings{
-    font-family: 'Trebuchet MS';
-    font-weight: bold;
-    font-style: italic;
-  }
-  .bgimg-1 {
+  font-family: 'Trebuchet MS';
+  font-size:16px;
+}
+.smallHeadings{
+  font-family: 'Trebuchet MS';
+  font-weight: bold;
+  font-style: italic;
+}
+.bgimg-1 {
   background-image: url('/aboutusheader');
   min-height: 400px;
   background-attachment: fixed;
@@ -15,16 +15,11 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-.margins {
+/*.margins {
     margin-bottom: 16px;
     display: block;
     box-sizing: inherit;
-}
-.squareItem{
-  float: left;
-  width: 33.33333%;
-  padding: 0 8px;
-}
+}*/
 #Names{
   font-family: "Merienda One";
   font-weight: bold;
@@ -39,4 +34,12 @@
   line-height: 1.5;
   color: #212529;
   text-align: left;
+}
+.squareItem{
+  float: left;
+  width: 33.33333%;
+  padding: 0 8px;
+  margin-bottom: 16px;
+    display: block;
+    box-sizing: inherit;
 }
