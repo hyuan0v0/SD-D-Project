@@ -56,36 +56,41 @@
 						<i class="fas fa-align-left"></i>
 						<span></span>
 					</button>
-					<h1 style="font-family: Merienda One; color: rgb(154, 128, 179);">Virtual Connections </h1>
+					<h1 style="font-family: Merienda One; color: #8c92ac;">Virtual Connections </h1>
 				</div>
 			</nav>
 
 			<section style="margin-left: 5%;">
 				<h1>My Groups</h1>
-				<form id="tableForm" action="/deletegroup" method="post">
-							<ul style="list-style-type:none; padding-left: 0px;">
-								<li>
-									<select id= "groupselection" class="selectpicker" data-style="btn-info" name="classpicker">
-										<optgroup label="Select Group">
-											<option name="" value="0">Select Group</option>
-										</optgroup>
-									</select>
-								</li>
-								<br>
-								<li>
-									<!-- <input type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);"> -->
-									<button class="btn btn-lg btn-primary" type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);">Delete</button></li>
-							</ul>
-							<!-- <h2>Day <p id = "day"></p></h2> -->
-							<!-- <h2>Meeting Time <p id = "time"></p></h2> -->
-						</form>
-						<div class="col">
-						<h2>Day</h2>
-						<p id = "day" style="font-size: 30px;"></p>
-						<h2>Meeting Time</h2>
-						<p id = "time" style="font-size: 30px;"></p>
+				<p>See your participated groups.</p>
+				<br>
+				<div class="row">
+					<div class="col">
+					<form id="tableForm" action="/deletegroup" method="post">
+						<ul style="list-style-type:none; padding-left: 0px;">
+							<li>
+								<select id= "groupselection" class="selectpicker" data-style="btn-info" name="classpicker">
+									<optgroup label="Select Group">
+										<option name="" value="0">Select Group</option>
+									</optgroup>
+								</select>
+							</li>
+							<br>
+							<li>
+								<!-- <input type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);"> -->
+								<button class="btn btn-lg btn-primary" type="Submit" name="Submit New Group" style="background-color: rgb(162, 162, 233);">Delete</button></li>
+						</ul>
+						<!-- <h2>Day <p id = "day"></p></h2> -->
+						<!-- <h2>Meeting Time <p id = "time"></p></h2> -->
+					</form>
 					</div>
-                <p>See your participated groups.</p>
+					<div class="col">
+							<h2>Day</h2>
+							<p id = "day" style="font-size: 30px;"></p>
+							<h2>Meeting Time</h2>
+							<p id = "time" style="font-size: 30px;"></p>
+					</div>
+				</div>
 			</section>
             <br>
 			</div>
