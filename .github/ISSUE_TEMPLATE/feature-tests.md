@@ -79,7 +79,7 @@ b. If incorrect: System prompts you to re-enter your username and password
 8. Your new activity should be on the calendar at the date and time you entered
 ---
 **Test 7: View Group Information**
-1. From your dashboard choose a group you’re currently a member of
-2. Press on the group
+1. From your dashboard navigate to my groups
+2. select a group group
 3. Redirected to group information page
 4. Should be a section displaying names and email addresses
