@@ -40,7 +40,7 @@ b. If incorrect: System prompts you to re-enter your username and password
 10. Select your choice of meeting time
 11. The dropdown box should now display your meeting time
 12. Press create group
-13. Redirected to dashboard
+13. Redirected to my groups
 14. Should now see a group on the calendar on specified day and time
 ---
 **Test 3.5: Calendar**
@@ -56,8 +56,6 @@ b. If incorrect: System prompts you to re-enter your username and password
 6. Press send
 7. URL should now contain your message information
 ---
-# Tests for Future Features:
-
 **Test 5: Find Group**
 1. From your dashboard press find group
 2. Select the class you’re looking for a group for
@@ -67,6 +65,8 @@ b. If incorrect: System prompts you to re-enter your username and password
 6. Decide what group you want and press join group
 7. Redirected to dashboard
 8. Your newly joined group should now show on your calendar at the time seen on the find group page
+---
+# Tests for Future Features:
 ---
 **Test 6: Add non-Group**
 1. From your dashboard press schedule
