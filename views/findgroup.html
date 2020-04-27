@@ -93,6 +93,8 @@
 						<p id = "day" style="font-size: 30px;"></p>
 						<h2>Meeting Time</h2>
 						<p id = "time" style="font-size: 30px;"></p>
+						<h2>Class</h2>
+						<p id = "classes" style="font-size: 30px;"></p>
 					</div>
 				</div>
 			</section>
@@ -105,12 +107,15 @@
 		window.x = '<%= item%>';
 		window.y = '<%= day%>';
 		window.z = '<%= time%>';
+		window.w = '<%= classname%>';
 		var names = window.x.split(",");
 		var days = window.y.split(",");
 		var times = window.z.split(",");
+		var classnames = window.w.split(",");
 		console.log(names);
 		console.log(days);
 		console.log(times);
+		console.log(classnames);
 		var select = document.getElementById("groupselection");
 		for(var i =0;i<names.length;i++){
 			var opt = names[i];
@@ -128,6 +133,7 @@
 			if(index >= 0){
 				document.getElementById("day").innerHTML = days[index];
 				document.getElementById("time").innerHTML = times[index];
+				document.getElementById("classes").innerHTML = classnames[index];
 			}
 		
 		});

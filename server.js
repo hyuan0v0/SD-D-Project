@@ -467,6 +467,7 @@ router.get('/findgroup', (req, res) => {
     const name = [];
     const day = [];
     const time = [];
+    const classname = [];
 
     // Format the data in individual array for each value
     while (x < item.length) {
@@ -474,12 +475,13 @@ router.get('/findgroup', (req, res) => {
       name.push(item[x].groupname);
       day.push(item[x].meetingday);
       time.push(item[x].meetingtime);
+      classname.push(item[x].classname);
       x += 1;
     }
 
     // Render the page and inject the data
     res.render('findgroup', {
-      item: name, day, time, ids,
+      item: name, day, time, ids, classname,
     });
   });
 });
